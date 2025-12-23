@@ -5,48 +5,11 @@ import { MobileMenu } from "./MobileMenu";
 import { ThemeLanguageControls } from "./ThemeLanguageControls";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { useState } from "react";
+import { smoothScrollTo } from "../../../utils/scroll";
 
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useTheme();
-
-  // Função de scroll otimizada: mobile rápido (500ms), desktop suave (1000ms)
-  const smoothScrollTo = (targetPosition: number) => {
-    const startPosition = window.scrollY;
-    const distance = targetPosition - startPosition;
-    const isMobile = window.innerWidth < 768;
-    
-    // Mobile: 500ms, Desktop: 1000ms
-    const duration = isMobile ? 500 : 1000;
-    const startTime = performance.now();
-    
-    // Cancela scroll anterior em mobile
-    if (isMobile && (window as any).__navScrollRafId) {
-      cancelAnimationFrame((window as any).__navScrollRafId);
-    }
-
-    const animateScroll = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Mobile: easing mais rápido, Desktop: ease-in-out suave
-      const easingFunction = isMobile 
-        ? (t: number) => 1 - Math.pow(1 - t, 3) // easeOutCubic
-        : (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOutQuad
-      
-      const easedProgress = easingFunction(progress);
-      window.scrollTo(0, startPosition + distance * easedProgress);
-
-      if (progress < 1) {
-        const rafId = requestAnimationFrame(animateScroll);
-        if (isMobile) {
-          (window as any).__navScrollRafId = rafId;
-        }
-      }
-    };
-
-    requestAnimationFrame(animateScroll);
-  };
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
