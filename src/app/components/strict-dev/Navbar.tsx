@@ -1,6 +1,6 @@
 import { Button } from "../ui/button";
 import { Menu, FileText } from "lucide-react";
-import { Logo } from "./Logo";
+import logo from "figma:asset/4d7188997962f2b31b257965e8301d417e7e07aa.png";
 import { MobileMenu } from "./MobileMenu";
 import { ThemeLanguageControls } from "./ThemeLanguageControls";
 import { useTheme } from "../../../contexts/ThemeContext";
@@ -10,26 +10,38 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useTheme();
 
-  // Função de scroll suave (mesma do BackToTop)
+  // Função de scroll otimizada: mobile rápido (500ms), desktop suave (1000ms)
   const smoothScrollTo = (targetPosition: number) => {
     const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
-    const duration = 1000; // 1 segundo
+    const isMobile = window.innerWidth < 768;
+    
+    // Mobile: 500ms, Desktop: 1000ms
+    const duration = isMobile ? 500 : 1000;
     const startTime = performance.now();
+    
+    // Cancela scroll anterior em mobile
+    if (isMobile && (window as any).__navScrollRafId) {
+      cancelAnimationFrame((window as any).__navScrollRafId);
+    }
 
     const animateScroll = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function (ease-in-out)
-      const easeInOutQuad = (t: number) => 
-        t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      // Mobile: easing mais rápido, Desktop: ease-in-out suave
+      const easingFunction = isMobile 
+        ? (t: number) => 1 - Math.pow(1 - t, 3) // easeOutCubic
+        : (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; // easeInOutQuad
       
-      const easedProgress = easeInOutQuad(progress);
+      const easedProgress = easingFunction(progress);
       window.scrollTo(0, startPosition + distance * easedProgress);
 
       if (progress < 1) {
-        requestAnimationFrame(animateScroll);
+        const rafId = requestAnimationFrame(animateScroll);
+        if (isMobile) {
+          (window as any).__navScrollRafId = rafId;
+        }
       }
     };
 
@@ -48,7 +60,8 @@ export function Navbar() {
       const targetElement = document.getElementById(targetId);
       
       if (targetElement) {
-        const navbarHeight = 80; // Altura do navbar
+        const isMobile = window.innerWidth < 768;
+        const navbarHeight = isMobile ? 64 : 80;
         const targetPosition = targetElement.offsetTop - navbarHeight;
         smoothScrollTo(targetPosition);
       }
@@ -67,7 +80,13 @@ export function Navbar() {
                 className="flex items-center h-full cursor-pointer"
                 onClick={(e) => handleNavClick(e, "#")}
               >
-                 <Logo className="md:h-[70px] w-auto object-contain" />
+                 <img 
+                     src={logo} 
+                     alt="Strict.Dev logotipo" 
+                     width="200"
+                     height="70"
+                     className="md:h-[70px] w-auto object-contain" 
+                 />
             </a>
           </div>
 
