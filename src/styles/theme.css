@@ -31,14 +31,17 @@ html.loading * {
 }
 
 /* Smooth Scroll Global */
-html {
-  scroll-behavior: smooth;
+/* Desktop: scroll nativo suave */
+@media (min-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
-/* Mobile: desabilita scroll-behavior nativo (usamos JS otimizado) */
+/* Mobile: desabilita scroll-behavior nativo (usa JS otimizado) */
 @media (max-width: 767px) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
   }
   
   /* Otimizações de performance para mobile */
@@ -46,19 +49,12 @@ html {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-y: none;
   }
-  
-  /* GPU acceleration para scroll suave */
-  * {
-    -webkit-transform: translateZ(0);
-    -webkit-backface-visibility: hidden;
-    -webkit-perspective: 1000;
-  }
 }
 
 /* Fallback para navegadores sem suporte */
 @media (prefers-reduced-motion: reduce) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: auto !important;
   }
 }
 
