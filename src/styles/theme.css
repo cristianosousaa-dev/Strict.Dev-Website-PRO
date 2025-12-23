@@ -35,6 +35,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Mobile: desabilita scroll-behavior nativo (usamos JS otimizado) */
+@media (max-width: 767px) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  /* Otimizações de performance para mobile */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: none;
+  }
+  
+  /* GPU acceleration para scroll suave */
+  * {
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    -webkit-perspective: 1000;
+  }
+}
+
 /* Fallback para navegadores sem suporte */
 @media (prefers-reduced-motion: reduce) {
   html {
