@@ -1,7 +1,7 @@
 {
   "name": "Strict.Dev — Premium Web Development & AI Consultancy",
   "short_name": "Strict.Dev",
-  "description": "Premium Web Development and AI consultancy in Portugal with NIS2 & GDPR compliance",
+  "description": "Premium web development and AI consultancy in Portugal with NIS2 & GDPR compliance",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
@@ -12,9 +12,14 @@
   "scope": "/",
   "icons": [
     {
-      "src": "/favicon.ico",
-      "sizes": "48x48",
-      "type": "image/x-icon"
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
     },
     {
       "src": "/favicon-96x96.png",
@@ -22,37 +27,28 @@
       "type": "image/png"
     },
     {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
       "src": "/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
-      "src": "/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
-    {
-      "src": "/logo.png",
+      "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/png",
-      "purpose": "any"
-    }
-  ],
-  "categories": ["business", "productivity", "development"],
-  "iarc_rating_id": "",
-  "screenshots": [
-    {
-      "src": "/og-image.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "form_factor": "wide"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
     }
   ]
 }
