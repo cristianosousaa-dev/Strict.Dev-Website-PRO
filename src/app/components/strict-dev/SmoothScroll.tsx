@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 /**
  * Componente para melhorar o smooth scroll e compensar a navbar fixa
- * Adiciona offset de 64px em mobile e 80px em desktop (altura da navbar) ao fazer scroll para âncoras
+ * Otimizado para mobile: scroll rápido e sem travamentos
+ * Desktop: mantém scroll suave e elegante
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -17,15 +18,47 @@ export function SmoothScroll() {
         if (element) {
           e.preventDefault();
           
-          // Offset para compensar a navbar fixa - 64px mobile, 80px desktop
-          const navbarHeight = window.innerWidth < 768 ? 64 : 80;
+          const isMobile = window.innerWidth < 768;
+          const navbarHeight = isMobile ? 64 : 80;
           const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
           const offsetPosition = elementPosition - navbarHeight;
           
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
+          // Mobile: scroll otimizado com requestAnimationFrame
+          // Desktop: usa scroll nativo do browser
+          if (isMobile) {
+            // Cancela scroll anterior se existir
+            if ((window as any).__scrollRafId) {
+              cancelAnimationFrame((window as any).__scrollRafId);
+            }
+            
+            const startPosition = window.scrollY;
+            const distance = offsetPosition - startPosition;
+            const duration = 500; // Mobile: 500ms (mais rápido)
+            const startTime = performance.now();
+            
+            // Easing otimizado para mobile
+            const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+            
+            const animateScroll = (currentTime: number) => {
+              const elapsed = currentTime - startTime;
+              const progress = Math.min(elapsed / duration, 1);
+              const easedProgress = easeOutCubic(progress);
+              
+              window.scrollTo(0, startPosition + distance * easedProgress);
+
+              if (progress < 1) {
+                (window as any).__scrollRafId = requestAnimationFrame(animateScroll);
+              }
+            };
+            
+            (window as any).__scrollRafId = requestAnimationFrame(animateScroll);
+          } else {
+            // Desktop: usa scroll nativo
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+          }
           
           // Atualiza a URL sem forçar scroll
           history.pushState(null, "", hash);
@@ -37,6 +70,10 @@ export function SmoothScroll() {
     
     return () => {
       document.removeEventListener("click", handleAnchorClick);
+      // Cleanup: cancela animações pendentes
+      if ((window as any).__scrollRafId) {
+        cancelAnimationFrame((window as any).__scrollRafId);
+      }
     };
   }, []);
 
