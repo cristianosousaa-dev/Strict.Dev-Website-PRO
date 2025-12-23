@@ -14,8 +14,8 @@ export function SEOHead({
   title,
   description,
   keywords,
-  image = "https://strict.dev/og-image.png",
-  url = "https://strict.dev",
+  image = "https://strict-dev.com/og-image.png",
+  url = "https://strict-dev.com",
   type = "website",
 }: SEOHeadProps) {
   const { language, t } = useTheme();
@@ -74,7 +74,7 @@ export function SEOHead({
     "url": url,
     "logo": {
       "@type": "ImageObject",
-      "url": "https://strict.dev/logo.png",
+      "url": "https://strict-dev.com/logo.png",
       "width": 200,
       "height": 70
     },
