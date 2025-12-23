@@ -1,9 +1,10 @@
 import { useEffect } from "react";
+import { smoothScrollTo } from "../../../utils/scroll";
 
 /**
- * Componente para melhorar o smooth scroll e compensar a navbar fixa
- * Otimizado para mobile: scroll rápido e sem travamentos
- * Desktop: mantém scroll suave e elegante
+ * Componente para scroll suave otimizado
+ * Mobile: 600ms, easeOutQuart (fluido como desktop)
+ * Desktop: usa scroll nativo do browser
  */
 export function SmoothScroll() {
   useEffect(() => {
@@ -23,37 +24,11 @@ export function SmoothScroll() {
           const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
           const offsetPosition = elementPosition - navbarHeight;
           
-          // Mobile: scroll otimizado com requestAnimationFrame
-          // Desktop: usa scroll nativo do browser
+          // Mobile: usa função otimizada
+          // Desktop: scroll nativo
           if (isMobile) {
-            // Cancela scroll anterior se existir
-            if ((window as any).__scrollRafId) {
-              cancelAnimationFrame((window as any).__scrollRafId);
-            }
-            
-            const startPosition = window.scrollY;
-            const distance = offsetPosition - startPosition;
-            const duration = 500; // Mobile: 500ms (mais rápido)
-            const startTime = performance.now();
-            
-            // Easing otimizado para mobile
-            const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-            
-            const animateScroll = (currentTime: number) => {
-              const elapsed = currentTime - startTime;
-              const progress = Math.min(elapsed / duration, 1);
-              const easedProgress = easeOutCubic(progress);
-              
-              window.scrollTo(0, startPosition + distance * easedProgress);
-
-              if (progress < 1) {
-                (window as any).__scrollRafId = requestAnimationFrame(animateScroll);
-              }
-            };
-            
-            (window as any).__scrollRafId = requestAnimationFrame(animateScroll);
+            smoothScrollTo(offsetPosition);
           } else {
-            // Desktop: usa scroll nativo
             window.scrollTo({
               top: offsetPosition,
               behavior: "smooth"
@@ -73,6 +48,7 @@ export function SmoothScroll() {
       // Cleanup: cancela animações pendentes
       if ((window as any).__scrollRafId) {
         cancelAnimationFrame((window as any).__scrollRafId);
+        delete (window as any).__scrollRafId;
       }
     };
   }, []);
