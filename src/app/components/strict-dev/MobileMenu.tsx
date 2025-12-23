@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { ThemeLanguageControls } from "./ThemeLanguageControls";
 import logo from "figma:asset/4d7188997962f2b31b257965e8301d417e7e07aa.png";
+import { smoothScrollTo } from "../../../utils/scroll";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -13,41 +14,11 @@ interface MobileMenuProps {
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const { t } = useTheme();
 
-  // Função de scroll otimizada: mobile rápido (500ms)
-  const smoothScrollTo = (targetPosition: number) => {
-    const startPosition = window.scrollY;
-    const distance = targetPosition - startPosition;
-    const duration = 500; // Mobile: 500ms (mais rápido)
-    const startTime = performance.now();
-    
-    // Cancela scroll anterior
-    if ((window as any).__menuScrollRafId) {
-      cancelAnimationFrame((window as any).__menuScrollRafId);
-    }
-
-    const animateScroll = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing otimizado para mobile
-      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
-      
-      const easedProgress = easeOutCubic(progress);
-      window.scrollTo(0, startPosition + distance * easedProgress);
-
-      if (progress < 1) {
-        (window as any).__menuScrollRafId = requestAnimationFrame(animateScroll);
-      }
-    };
-
-    (window as any).__menuScrollRafId = requestAnimationFrame(animateScroll);
-  };
-
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     onClose();
     
-    // Aguarda o menu fechar antes de fazer scroll
+    // Aguarda o menu fechar antes de fazer scroll (mobile: 600ms fluido)
     setTimeout(() => {
       const targetId = href.replace("#", "");
       const targetElement = document.getElementById(targetId);
