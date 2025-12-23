@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Button } from "../ui/button";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { ThemeLanguageControls } from "./ThemeLanguageControls";
-import { Logo } from "./Logo";
+import logo from "figma:asset/4d7188997962f2b31b257965e8301d417e7e07aa.png";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -13,30 +13,34 @@ interface MobileMenuProps {
 export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
   const { t } = useTheme();
 
-  // Função de scroll suave (mesma do BackToTop)
+  // Função de scroll otimizada: mobile rápido (500ms)
   const smoothScrollTo = (targetPosition: number) => {
     const startPosition = window.scrollY;
     const distance = targetPosition - startPosition;
-    const duration = 1000; // 1 segundo
+    const duration = 500; // Mobile: 500ms (mais rápido)
     const startTime = performance.now();
+    
+    // Cancela scroll anterior
+    if ((window as any).__menuScrollRafId) {
+      cancelAnimationFrame((window as any).__menuScrollRafId);
+    }
 
     const animateScroll = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function (ease-in-out)
-      const easeInOutQuad = (t: number) => 
-        t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+      // Easing otimizado para mobile
+      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
       
-      const easedProgress = easeInOutQuad(progress);
+      const easedProgress = easeOutCubic(progress);
       window.scrollTo(0, startPosition + distance * easedProgress);
 
       if (progress < 1) {
-        requestAnimationFrame(animateScroll);
+        (window as any).__menuScrollRafId = requestAnimationFrame(animateScroll);
       }
     };
 
-    requestAnimationFrame(animateScroll);
+    (window as any).__menuScrollRafId = requestAnimationFrame(animateScroll);
   };
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -49,7 +53,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       const targetElement = document.getElementById(targetId);
       
       if (targetElement) {
-        const navbarHeight = 80;
+        const navbarHeight = 64; // Mobile navbar height
         const targetPosition = targetElement.offsetTop - navbarHeight;
         smoothScrollTo(targetPosition);
       }
@@ -82,7 +86,7 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
             <X className="w-5 h-5 text-neutral-700 dark:text-neutral-300" />
           </button>
           <div className="flex justify-center mb-4">
-            <Logo className="h-14 w-auto" />
+            <img src={logo} alt="Strict.Dev" className="h-14 w-auto" />
           </div>
           <p className="text-center text-[9px] uppercase tracking-widest text-neutral-500 dark:text-neutral-400 font-bold">
             {t.mobileMenu.tagline}
