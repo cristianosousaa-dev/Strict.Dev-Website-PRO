@@ -1,0 +1,122 @@
+# ============================================================
+# Strict.Dev - robots.txt
+# Premium Web Development & AI Consultancy - Portugal
+# Last Updated: 2024-12-16
+# ============================================================
+
+# Default Rules for All Crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*lead=
+Disallow: /*?*campaign=
+
+# Crawl-delay (default)
+Crawl-delay: 1
+
+# ============================================================
+# PRIORITY CRAWLERS
+# ============================================================
+
+# Googlebot - Maximum Priority
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+# Mobile-friendly
+User-agent: Googlebot-Mobile
+Allow: /
+Crawl-delay: 0
+
+# Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# DuckDuckBot
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
+# Baiduspider (Chinese market)
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# ============================================================
+# AI & LLM CRAWLERS
+# ============================================================
+
+# OpenAI GPTBot
+User-agent: GPTBot
+Allow: /
+
+# Google-Extended (Bard/Gemini)
+User-agent: Google-Extended
+Allow: /
+
+# Anthropic Claude
+User-agent: anthropic-ai
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# ============================================================
+# SEO TOOLS - BLOCKED
+# ============================================================
+
+# Ahrefs
+User-agent: AhrefsBot
+Disallow: /
+
+# Semrush
+User-agent: SemrushBot
+Disallow: /
+
+# Moz
+User-agent: DotBot
+User-agent: rogerbot
+Disallow: /
+
+# Majestic
+User-agent: MJ12bot
+Disallow: /
+
+# SEOkicks
+User-agent: SEOkicks
+Disallow: /
+
+# ============================================================
+# MALICIOUS BOTS - BLOCKED
+# ============================================================
+
+User-agent: SemrushBot
+User-agent: AhrefsBot
+User-agent: DotBot
+User-agent: MJ12bot
+User-agent: BLEXBot
+User-agent: PetalBot
+User-agent: SeznamBot
+User-agent: MegaIndex
+User-agent: linkdexbot
+Disallow: /
+
+# ============================================================
+# SITEMAP LOCATION
+# ============================================================
+
+Sitemap: https://strict.dev/sitemap.xml
+
+# ============================================================
+# HOST DECLARATION (for international domains)
+# ============================================================
+
+Host: https://strict.dev

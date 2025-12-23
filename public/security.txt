@@ -1,0 +1,22 @@
+# Strict.Dev - Security Policy
+# RFC 9116 compliant security.txt
+
+Contact: security@strict.dev
+Expires: 2026-01-13T00:00:00.000Z
+Preferred-Languages: pt, en
+Canonical: https://strict.dev/.well-known/security.txt
+
+# Security Reporting
+# If you discover a security vulnerability, please report it to:
+# Email: security@strict.dev
+# PGP Key: https://strict.dev/pgp-key.asc (if available)
+
+# Policy
+# We take security seriously and will respond within 48 hours.
+# Please do not disclose vulnerabilities publicly until we have addressed them.
+
+# Acknowledgments
+# https://strict.dev/security-acknowledgments
+
+# Hiring
+# Interested in security? Visit: https://strict.dev/#contact
