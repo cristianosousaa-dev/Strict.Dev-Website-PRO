@@ -20,42 +20,42 @@ export function ProjectConfigurator() {
       name: t.projectConfigurator.services.web, 
       desc: t.projectConfigurator.services.webDesc,
       weeks: 5,
-      price: 600
+      price: 399
     },
     { 
       id: 'ai', 
       name: t.projectConfigurator.services.ai, 
       desc: t.projectConfigurator.services.aiDesc,
       weeks: 4,
-      price: 450
+      price: 499
     },
     { 
       id: 'nis2', 
       name: t.projectConfigurator.services.nis2, 
       desc: t.projectConfigurator.services.nis2Desc,
       weeks: 3,
-      price: 300
+      price: 599
     },
     { 
       id: 'rgpd', 
       name: t.projectConfigurator.services.rgpd, 
       desc: t.projectConfigurator.services.rgpdDesc,
       weeks: 3,
-      price: 300
+      price: 399
     },
     { 
       id: 'integration', 
       name: t.projectConfigurator.services.integration, 
       desc: t.projectConfigurator.services.integrationDesc,
       weeks: 4,
-      price: 400
+      price: 199
     },
     { 
       id: 'infra', 
       name: t.projectConfigurator.services.infra, 
       desc: t.projectConfigurator.services.infraDesc,
       weeks: 2,
-      price: 250
+      price: 149
     },
   ];
 
