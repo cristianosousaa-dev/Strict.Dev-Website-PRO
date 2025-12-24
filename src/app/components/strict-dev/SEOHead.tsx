@@ -20,6 +20,9 @@ export function SEOHead({
 }: SEOHeadProps) {
   const { language, t } = useTheme();
 
+  // Static version for caching (update when image changes)
+  const finalImage = `${image}?v=2024`;
+
   // Dynamic defaults based on language
   const defaultTitle = language === 'en' 
     ? "Strict.Dev — Web Development & Artificial Intelligence | NIS2 & GDPR"
@@ -320,8 +323,8 @@ export function SEOHead({
       <meta property="og:url" content={url} />
       <meta property="og:title" content={finalTitle} />
       <meta property="og:description" content={finalDescription} />
-      <meta property="og:image" content={image} />
-      <meta property="og:image:secure_url" content={image} />
+      <meta property="og:image" content={finalImage} />
+      <meta property="og:image:secure_url" content={finalImage} />
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
@@ -336,7 +339,7 @@ export function SEOHead({
       <meta property="twitter:url" content={url} />
       <meta property="twitter:title" content={finalTitle} />
       <meta property="twitter:description" content={finalDescription} />
-      <meta property="twitter:image" content={image} />
+      <meta property="twitter:image" content={finalImage} />
       <meta property="twitter:image:alt" content="Strict.Dev - Consultoria Premium" />
       <meta property="twitter:creator" content="@strictdev" />
       <meta property="twitter:site" content="@strictdev" />
@@ -356,7 +359,6 @@ export function SEOHead({
       
       {/* Security Headers */}
       <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-      {/* X-Frame-Options removed - must be set via HTTP headers only, not meta tags */}
       <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
       <meta name="referrer" content="strict-origin-when-cross-origin" />
 
