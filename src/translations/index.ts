@@ -331,7 +331,7 @@ export const translations = {
       },
       investment: {
         total: "Investimento Total",
-        disclaimer: "Os valores apresentados são estimativas base. O investimento final depende de variáveis como complexidade técnica, integrações necessárias, volume de dados, requisitos de compliance e SLAs desejados. Todos os projetos incluem proposta comercial personalizada após análise detalhada.",
+        disclaimer: "Os valores apresentados são estimativas base e podem variar consoante ofertas comerciais vigentes, complexidade técnica, integrações necessárias, volume de dados, requisitos de compliance e SLAs desejados. Todos os projetos incluem proposta comercial personalizada após análise detalhada.",
         cta: "Solicitar Proposta Personalizada",
         from: "desde",
         label: "Investimento",
@@ -720,7 +720,7 @@ export const translations = {
       },
       investment: {
         total: "Total Investment",
-        disclaimer: "The values presented are base estimates. The final investment depends on variables such as technical complexity, required integrations, data volume, compliance requirements, and desired SLAs. All projects include a customized commercial proposal after detailed analysis.",
+        disclaimer: "The values presented are base estimates and may vary according to current commercial offers, technical complexity, required integrations, data volume, compliance requirements, and desired SLAs. All projects include a customized commercial proposal after detailed analysis.",
         cta: "Request Custom Proposal",
         from: "from",
         label: "Investment",
