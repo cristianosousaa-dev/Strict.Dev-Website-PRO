@@ -81,15 +81,15 @@ export function SEOHead({
       "width": 200,
       "height": 70
     },
-    "image": image,
+    "image": finalImage,
     "foundingDate": "2020",
-    "description": description,
+    "description": finalDescription,
     "slogan": "Desenvolvimento Web de Alta Performance & Conformidade Legal Europeia",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Ponte de Lima",
       "addressRegion": "Viana do Castelo",
-      "addressCountry": "PT",
+      "addressCountry": "PT"
     },
     "contactPoint": {
       "@type": "ContactPoint",
@@ -109,7 +109,7 @@ export function SEOHead({
     ],
     "areaServed": {
       "@type": "Country",
-      "name": "Portugal",
+      "name": "Portugal"
     },
     "makesOffer": [
       {
@@ -222,7 +222,7 @@ export function SEOHead({
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "Strict.Dev",
-    "image": image,
+    "image": finalImage,
     "description": finalDescription,
     "address": {
       "@type": "PostalAddress",
@@ -265,7 +265,7 @@ export function SEOHead({
     "@type": "WebSite",
     "name": "Strict.Dev",
     "url": url,
-    "description": description,
+    "description": finalDescription,
     "potentialAction": {
       "@type": "SearchAction",
       "target": {
@@ -285,21 +285,21 @@ export function SEOHead({
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": url,
+        "item": url
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Serviços",
-        "item": `${url}/#services`,
+        "item": `${url}/#services`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Contacto",
-        "item": `${url}/#contact`,
-      },
-    ],
+        "item": `${url}/#contact`
+      }
+    ]
   };
 
   return (
