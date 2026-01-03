@@ -47,8 +47,48 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Structured Data for Google Search -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Strict.Dev",
+    "url": "https://strict-dev.com",
+    "logo": "https://strict-dev.com/apple-touch-icon.png",
+    "image": "https://strict-dev.com/og-image.png",
+    "description": "Consultoria premium em desenvolvimento web de alta performance e automação empresarial via IA. Garantia de conformidade legal (NIS2/RGPD) para infraestruturas críticas.",
+    "sameAs": [],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "info@strict-dev.com",
+      "availableLanguage": ["Portuguese", "English"]
+    },
+    "areaServed": "PT",
+    "knowsAbout": ["Web Development", "Artificial Intelligence", "NIS2 Compliance", "GDPR", "Cybersecurity"]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Strict.Dev",
+    "url": "https://strict-dev.com",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://strict-dev.com/?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
