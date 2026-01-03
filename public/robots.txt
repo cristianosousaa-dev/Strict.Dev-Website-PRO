@@ -1,7 +1,7 @@
 # ============================================================
 # Strict.Dev - robots.txt
 # Premium Web Development & AI Consultancy - Portugal
-# Last Updated: 2024-12-16
+# Last Updated: 2025-01-01
 # ============================================================
 
 # Default Rules for All Crawlers
@@ -113,10 +113,10 @@ Disallow: /
 # SITEMAP LOCATION
 # ============================================================
 
-Sitemap: https://strict.dev/sitemap.xml
+Sitemap: https://strict-dev.com/sitemap.xml
 
 # ============================================================
 # HOST DECLARATION (for international domains)
 # ============================================================
 
-Host: https://strict.dev
+Host: https://strict-dev.com
