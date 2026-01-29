@@ -29,37 +29,64 @@ export function SEOHead({
     : "Strict.Dev — Desenvolvimento Web & Inteligência Artificial | NIS2 & RGPD";
   
   const defaultDescription = language === 'en'
-    ? "Premium consultancy in high-performance web development and business automation via AI. Legal compliance guarantee (NIS2/GDPR) for critical infrastructures in Portugal."
-    : "Consultoria premium em desenvolvimento web de alta performance e automação empresarial via IA. Garantia de conformidade legal (NIS2/RGPD) para infraestruturas críticas em Portugal.";
+    ? "Web development, AI chatbot and GDPR/NIS2 consulting in Ponte de Lima. Professional websites and online stores for local businesses, external DPO and automation for companies in Portugal. ☎ +351 910 205 459"
+    : "Desenvolvimento web, chatbot com IA e consultoria RGPD/NIS2 em Ponte de Lima. Criação de sites e lojas online para negócios locais, DPO externo e automação para empresas em Portugal. ☎ 910 205 459";
   
   const defaultKeywords = language === 'en'
     ? [
-        "web development",
-        "artificial intelligence",
-        "AI Portugal",
-        "NIS2 consulting",
-        "GDPR compliance",
-        "business automation",
-        "AI chatbots",
-        "AI agents",
+        // Tier 1: Local Businesses
+        "website creation Ponte de Lima",
+        "web design Portugal",
+        "online store creation",
+        "professional websites",
+        // Tier 2: SMEs
+        "AI chatbot Portugal",
+        "AI implementation for companies",
+        "GDPR consulting Portugal",
+        "business automation AI",
+        "customer service chatbot",
+        // Tier 3: Corporations
+        "NIS2 consulting Portugal",
+        "external DPO Portugal",
+        "GDPR audit",
+        "critical infrastructure cybersecurity",
+        // Technical
         "technical SEO",
-        "critical infrastructure",
-        "cybersecurity",
         "React development",
         "Next.js Portugal",
       ]
     : [
-        "desenvolvimento web",
-        "inteligência artificial",
+        // Tier 1: Negócios Locais
+        "criação de sites Ponte de Lima",
+        "criação de sites profissionais",
+        "web design Portugal",
+        "desenvolvimento web Viana do Castelo",
+        "criação de loja online",
+        "loja online Portugal",
+        "website para empresas",
+        "manutenção de websites",
+        // Tier 2: PMEs
+        "chatbot com IA",
+        "implementação de IA para empresas",
+        "consultoria RGPD Portugal",
+        "automação empresarial IA",
+        "chatbot atendimento ao cliente",
+        "automação de atendimento com IA",
+        "banner de cookies RGPD",
+        "adequação website RGPD",
+        // Tier 3: Corporações
+        "consultoria NIS2 Portugal",
+        "DPO externo Portugal",
+        "auditoria RGPD",
+        "encarregado proteção dados",
+        "conformidade RGPD infraestruturas críticas",
+        "segurança cibernética NIS2",
+        // Local + Nacional
+        "desenvolvimento web Portugal",
+        "desenvolvimento web Norte de Portugal",
         "IA Portugal",
-        "consultoria NIS2",
-        "compliance RGPD",
-        "automação empresarial",
-        "chatbots IA",
-        "agentes IA",
+        // Técnicas
         "SEO técnico",
-        "infraestrutura crítica",
-        "segurança cibernética",
         "desenvolvimento React",
         "Next.js Portugal",
       ];
@@ -154,7 +181,7 @@ export function SEOHead({
     "name": "Strict.Dev",
     "description": finalDescription,
     "url": url,
-    "telephone": "+351912345678",
+    "telephone": "+351 910 205 459",
     "email": "info@strict-dev.com",
     "address": {
       "@type": "PostalAddress",
@@ -187,20 +214,30 @@ export function SEOHead({
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": language === 'en' ? "Web Development" : "Desenvolvimento Web",
+            "name": language === 'en' ? "Professional Website Creation" : "Criação de Sites Profissionais",
             "description": language === 'en' 
-              ? "High-performance web platforms with technical SEO"
-              : "Plataformas web de alta performance com SEO técnico"
+              ? "Responsive websites and online stores for local businesses with technical SEO"
+              : "Sites responsivos e lojas online para negócios locais com SEO técnico"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": language === 'en' ? "AI Agents" : "Agentes de IA",
+            "name": language === 'en' ? "AI Chatbot & Automation" : "Chatbot com IA e Automação",
             "description": language === 'en'
-              ? "AI chatbots and automation via LLMs"
-              : "Chatbots e automação via LLMs"
+              ? "Intelligent chatbots for customer service and business process automation"
+              : "Chatbots inteligentes para atendimento ao cliente e automação de processos empresariais"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": language === 'en' ? "GDPR Consulting & External DPO" : "Consultoria RGPD e DPO Externo",
+            "description": language === 'en'
+              ? "GDPR compliance, external Data Protection Officer, and cookie consent implementation"
+              : "Conformidade RGPD, Encarregado de Proteção de Dados externo e implementação de consentimento de cookies"
           }
         },
         {
@@ -209,8 +246,8 @@ export function SEOHead({
             "@type": "Service",
             "name": language === 'en' ? "NIS2 Consulting" : "Consultoria NIS2",
             "description": language === 'en'
-              ? "Network security compliance according to NIS2 directive"
-              : "Conformidade de segurança de redes segundo diretiva NIS2"
+              ? "Network security compliance for critical infrastructures according to NIS2 directive"
+              : "Conformidade de segurança de redes para infraestruturas críticas segundo diretiva NIS2"
           }
         }
       ]
@@ -238,9 +275,9 @@ export function SEOHead({
       "longitude": "-8.5833"
     },
     "url": url,
-    "telephone": "+351-XXX-XXX-XXX",
+    "telephone": "+351 910 205 459",
     "email": "info@strict-dev.com",
-    "priceRange": "€€€",
+    "priceRange": "€€-€€€€",
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
@@ -251,12 +288,7 @@ export function SEOHead({
     ],
     "sameAs": [
       "https://www.linkedin.com/company/strict-dev/"
-    ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "12"
-    }
+    ]
   };
 
   // WebSite Schema for Search
@@ -298,6 +330,175 @@ export function SEOHead({
         "position": 3,
         "name": "Contacto",
         "item": `${url}/#contact`
+      }
+    ]
+  };
+
+  // FAQ Schema - 10 perguntas para 3 públicos (Negócios Locais, PMEs, Corporações)
+  const faqData = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": language === 'en' ? [
+      {
+        "@type": "Question",
+        "name": "How much does it cost to create a professional website in Ponte de Lima?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Professional website creation starts at €1,200, including responsive design, technical SEO, and GDPR compliance. Free quote within 24 hours. Contact us at +351 910 205 459."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I have an online store to sell my products?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! We develop complete online stores with secure payments, stock management, and social media integration. Ideal for local businesses wanting to sell online in Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Strict.Dev maintain my website after it's ready?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, we offer monthly maintenance plans including security updates, automatic backups, and priority technical support for businesses in Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to implement an AI chatbot on my website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We create intelligent chatbots that automatically respond to customers 24/7, reducing customer service costs by up to 60%. Integration with WhatsApp, email, and social networks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does my website need to be GDPR compliant?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! All websites that collect data (forms, cookies, analytics) must have a consent banner, privacy policy, and GDPR-compliant data management system."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does AI implementation take in my company?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI automation projects (chatbots, data analysis, processes) take 4-8 weeks from initial consultation to complete deployment in Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Strict.Dev work with companies outside Ponte de Lima?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! We serve clients throughout Portugal (Porto, Lisbon, Braga, Aveiro). Remote meetings via Zoom and on-site visits when necessary."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an external DPO and why does my company need one?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Data Protection Officer (DPO) is mandatory for companies processing sensitive data at scale. We offer certified external DPO service, more economical than hiring internally."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How to prepare my company for the NIS2 Directive?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "NIS2 requires enhanced cybersecurity measures for critical infrastructures. We conduct compliance audits, implement security controls, and provide complete technical documentation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between GDPR and NIS2 consulting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GDPR focuses on personal data protection (privacy). NIS2 focuses on network and system security (cybersecurity). Companies in critical sectors need both compliances in Portugal."
+        }
+      }
+    ] : [
+      {
+        "@type": "Question",
+        "name": "Quanto custa criar um site profissional em Ponte de Lima?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Criação de sites profissionais desde €1.200, incluindo design responsivo, SEO técnico e conformidade RGPD. Orçamento gratuito em 24h. Contacte-nos: 910 205 459."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Posso ter uma loja online para vender os meus produtos?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim! Desenvolvemos lojas online completas com pagamentos seguros, gestão de stock e integração com redes sociais. Ideais para negócios locais que querem vender online em Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "A Strict.Dev faz a manutenção do meu site depois de pronto?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim, oferecemos planos de manutenção mensal incluindo atualizações de segurança, backups automáticos e suporte técnico prioritário para empresas em Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como implementar um chatbot com IA no meu website?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Criamos chatbots inteligentes que respondem automaticamente a clientes 24/7, reduzindo custos de atendimento em até 60%. Integração com WhatsApp, email e redes sociais."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O meu website precisa estar conforme ao RGPD?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim! Todos os websites que recolhem dados (formulários, cookies, analytics) devem ter banner de consentimento, política de privacidade e sistema de gestão de dados conforme RGPD."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Quanto tempo demora a implementação de IA na minha empresa?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Projetos de automação com IA (chatbots, análise de dados, processos) demoram 4-8 semanas desde consultoria inicial até deployment completo em Portugal."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "A Strict.Dev trabalha com empresas fora de Ponte de Lima?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sim! Servimos clientes em todo Portugal (Porto, Lisboa, Braga, Aveiro). Reuniões remotas via Zoom e deslocações quando necessário."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "O que é DPO externo e por que a minha empresa precisa de um?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "O Encarregado de Proteção de Dados (DPO) é obrigatório para empresas que processam dados sensíveis em larga escala. Oferecemos serviço de DPO externo certificado, mais económico que contratar internamente."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Como preparar a minha empresa para a Diretiva NIS2?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A NIS2 exige medidas de cibersegurança reforçadas para infraestruturas críticas. Fazemos auditoria de conformidade, implementação de controlos de segurança e documentação técnica completa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Qual a diferença entre consultoria RGPD e NIS2?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "RGPD foca em proteção de dados pessoais (privacidade). NIS2 foca em segurança de redes e sistemas (cibersegurança). Empresas de setores críticos precisam de ambas as conformidades em Portugal."
+        }
       }
     ]
   };
@@ -390,6 +591,11 @@ export function SEOHead({
       {/* Structured Data - Breadcrumb */}
       <script type="application/ld+json">
         {JSON.stringify(breadcrumbData)}
+      </script>
+
+      {/* Structured Data - FAQ */}
+      <script type="application/ld+json">
+        {JSON.stringify(faqData)}
       </script>
 
       {/* Favicons */}
