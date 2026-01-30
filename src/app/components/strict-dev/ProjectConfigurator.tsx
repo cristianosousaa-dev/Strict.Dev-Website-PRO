@@ -8,6 +8,7 @@ interface Service {
   desc: string;
   weeks: number;
   price: number;
+  isMonthly?: boolean;
 }
 
 export function ProjectConfigurator() {
@@ -30,10 +31,10 @@ export function ProjectConfigurator() {
       price: 499
     },
     { 
-      id: 'nis2', 
-      name: t.projectConfigurator.services.nis2, 
-      desc: t.projectConfigurator.services.nis2Desc,
-      weeks: 3,
+      id: 'ecommerce', 
+      name: t.projectConfigurator.services.ecommerce, 
+      desc: t.projectConfigurator.services.ecommerceDesc,
+      weeks: 6,
       price: 599
     },
     { 
@@ -41,21 +42,23 @@ export function ProjectConfigurator() {
       name: t.projectConfigurator.services.rgpd, 
       desc: t.projectConfigurator.services.rgpdDesc,
       weeks: 3,
-      price: 399
+      price: 299
     },
     { 
-      id: 'integration', 
-      name: t.projectConfigurator.services.integration, 
-      desc: t.projectConfigurator.services.integrationDesc,
-      weeks: 4,
-      price: 199
+      id: 'maintenance', 
+      name: t.projectConfigurator.services.maintenance, 
+      desc: t.projectConfigurator.services.maintenanceDesc,
+      weeks: 2,
+      price: 59,
+      isMonthly: true
     },
     { 
       id: 'infra', 
       name: t.projectConfigurator.services.infra, 
       desc: t.projectConfigurator.services.infraDesc,
       weeks: 2,
-      price: 149
+      price: 59,
+      isMonthly: true
     },
   ];
 
@@ -152,7 +155,7 @@ export function ProjectConfigurator() {
                       {t.projectConfigurator.investment.label}
                     </div>
                     <div className={`text-xs md:text-sm font-bold ${active ? 'text-white' : 'text-[#2f5e50]'}`}>
-                      {t.projectConfigurator.investment.from} {format(s.price)}
+                      {t.projectConfigurator.investment.from} {format(s.price)}{s.isMonthly ? t.projectConfigurator.investment.perMonth : ''}
                     </div>
                   </div>
                   <div className="text-right">
