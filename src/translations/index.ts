@@ -15,7 +15,7 @@ export const translations = {
       title1: "Desenvolvimento Web",
       title2: "Inteligência",
       title3: "Artificial",
-      subtitle: "Websites profissionais de alta performnance e soluções de IA orientadas para PMEs e negócios locais, promovendo a geração de leads e a otimização do posicionamento no Google.",
+      subtitle: "Websites profissionais de alta performance e soluções de IA orientadas para PMEs e negócios locais, promovendo a geração de leads e a otimização do posicionamento no Google.",
       ctaPrimary: "Consultoria — Resposta em 24h",
       ctaSecondary: "Serviços",
       badge1: "Conformidade RGPD",
