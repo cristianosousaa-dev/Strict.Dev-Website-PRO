@@ -25,12 +25,12 @@ export function SEOHead({
 
   // Dynamic defaults based on language
   const defaultTitle = language === 'en' 
-    ? "Strict.Dev — Web Development & Artificial Intelligence | NIS2 & GDPR"
-    : "Strict.Dev — Desenvolvimento Web & Inteligência Artificial | NIS2 & RGPD";
+    ? "Strict.Dev — Web Development & Artificial Intelligence | Website Creation & AI Bots | GDPR"
+    : "Strict.Dev — Desenvolvimento Web & Inteligência Artificial | Criação de Sites / IA Bots | RGPD";
   
   const defaultDescription = language === 'en'
-    ? "Web development, AI chatbot and GDPR/NIS2 consulting in Ponte de Lima. Professional websites and online stores for local businesses, external DPO and automation for companies in Portugal. ☎ +351 910 205 459"
-    : "Desenvolvimento web, chatbot com IA e consultoria RGPD/NIS2 em Ponte de Lima. Criação de sites e lojas online para negócios locais, DPO externo e automação para empresas em Portugal. ☎ 910 205 459";
+    ? "Professional website creation and AI chatbots. Online stores, GDPR compliance, and business automation for companies in Portugal. Free quote in 24h. ☎ +351 910 205 459"
+    : "Criação de sites profissionais e chatbots com IA. Lojas online, conformidade RGPD e automação empresarial para PMEs em Portugal. Orçamento gratuito em 24h. ☎ 910 205 459";
   
   const defaultKeywords = language === 'en'
     ? [
@@ -39,21 +39,26 @@ export function SEOHead({
         "web design Portugal",
         "online store creation",
         "professional websites",
+        "responsive web design",
+        "website maintenance Portugal",
         // Tier 2: SMEs
         "AI chatbot Portugal",
         "AI implementation for companies",
         "GDPR consulting Portugal",
         "business automation AI",
         "customer service chatbot",
-        // Tier 3: Corporations
-        "NIS2 consulting Portugal",
-        "external DPO Portugal",
-        "GDPR audit",
-        "critical infrastructure cybersecurity",
+        "AI automation Portugal",
+        "cookie consent GDPR",
+        "GDPR website compliance",
+        // Local + National
+        "web development Portugal",
+        "web development Northern Portugal",
+        "AI Portugal",
+        "web agency Ponte de Lima",
         // Technical
         "technical SEO",
         "React development",
-        "Next.js Portugal",
+        "web performance optimization",
       ]
     : [
         // Tier 1: Negócios Locais
@@ -65,6 +70,8 @@ export function SEOHead({
         "loja online Portugal",
         "website para empresas",
         "manutenção de websites",
+        "sites responsivos Portugal",
+        "agência web Ponte de Lima",
         // Tier 2: PMEs
         "chatbot com IA",
         "implementação de IA para empresas",
@@ -74,21 +81,16 @@ export function SEOHead({
         "automação de atendimento com IA",
         "banner de cookies RGPD",
         "adequação website RGPD",
-        // Tier 3: Corporações
-        "consultoria NIS2 Portugal",
-        "DPO externo Portugal",
-        "auditoria RGPD",
-        "encarregado proteção dados",
-        "conformidade RGPD infraestruturas críticas",
-        "segurança cibernética NIS2",
+        "conformidade RGPD websites",
         // Local + Nacional
         "desenvolvimento web Portugal",
         "desenvolvimento web Norte de Portugal",
         "IA Portugal",
+        "agência digital Minho",
         // Técnicas
         "SEO técnico",
         "desenvolvimento React",
-        "Next.js Portugal",
+        "otimização performance web",
       ];
 
   const finalTitle = title || defaultTitle;
@@ -143,32 +145,30 @@ export function SEOHead({
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Desenvolvimento Web",
-          "description": "Plataformas web de alta performance com SEO técnico otimizado"
+          "name": language === 'en' ? "Web Development" : "Desenvolvimento Web",
+          "description": language === 'en' 
+            ? "High-performance web platforms with optimized technical SEO" 
+            : "Plataformas web de alta performance com SEO técnico otimizado"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Agentes de IA",
-          "description": "Chatbots e automação via LLMs para eficiência empresarial"
+          "name": language === 'en' ? "AI Agents" : "Agentes de IA",
+          "description": language === 'en'
+            ? "Chatbots and automation via LLMs for business efficiency"
+            : "Chatbots e automação via LLMs para eficiência empresarial"
         }
       },
       {
         "@type": "Offer",
         "itemOffered": {
           "@type": "Service",
-          "name": "Consultoria NIS2",
-          "description": "Segurança de redes segundo a diretiva europeia NIS2"
-        }
-      },
-      {
-        "@type": "Offer",
-        "itemOffered": {
-          "@type": "Service",
-          "name": "RGPD & Proteção de Dados",
-          "description": "Sistemas de consentimento e retenção legal conforme RGPD"
+          "name": language === 'en' ? "GDPR & Data Protection" : "RGPD & Proteção de Dados",
+          "description": language === 'en'
+            ? "Consent systems and legal data retention according to GDPR"
+            : "Sistemas de consentimento e retenção legal conforme RGPD"
         }
       }
     ]
@@ -234,20 +234,10 @@ export function SEOHead({
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": language === 'en' ? "GDPR Consulting & External DPO" : "Consultoria RGPD e DPO Externo",
+            "name": language === 'en' ? "GDPR Website Compliance" : "Conformidade RGPD em Websites",
             "description": language === 'en'
-              ? "GDPR compliance, external Data Protection Officer, and cookie consent implementation"
-              : "Conformidade RGPD, Encarregado de Proteção de Dados externo e implementação de consentimento de cookies"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": language === 'en' ? "NIS2 Consulting" : "Consultoria NIS2",
-            "description": language === 'en'
-              ? "Network security compliance for critical infrastructures according to NIS2 directive"
-              : "Conformidade de segurança de redes para infraestruturas críticas segundo diretiva NIS2"
+              ? "Cookie consent banners, privacy policies, and GDPR-compliant data management"
+              : "Banners de consentimento de cookies, políticas de privacidade e gestão de dados conforme RGPD"
           }
         }
       ]
@@ -334,7 +324,7 @@ export function SEOHead({
     ]
   };
 
-  // FAQ Schema - 10 perguntas para 3 públicos (Negócios Locais, PMEs, Corporações)
+  // FAQ Schema - Focused on Local Businesses & SMEs
   const faqData = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -394,30 +384,6 @@ export function SEOHead({
           "@type": "Answer",
           "text": "Yes! We serve clients throughout Portugal (Porto, Lisbon, Braga, Aveiro). Remote meetings via Zoom and on-site visits when necessary."
         }
-      },
-      {
-        "@type": "Question",
-        "name": "What is an external DPO and why does my company need one?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "The Data Protection Officer (DPO) is mandatory for companies processing sensitive data at scale. We offer certified external DPO service, more economical than hiring internally."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How to prepare my company for the NIS2 Directive?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "NIS2 requires enhanced cybersecurity measures for critical infrastructures. We conduct compliance audits, implement security controls, and provide complete technical documentation."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What's the difference between GDPR and NIS2 consulting?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "GDPR focuses on personal data protection (privacy). NIS2 focuses on network and system security (cybersecurity). Companies in critical sectors need both compliances in Portugal."
-        }
       }
     ] : [
       {
@@ -425,7 +391,7 @@ export function SEOHead({
         "name": "Quanto custa criar um site profissional em Ponte de Lima?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Criação de sites profissionais desde €1.200, incluindo design responsivo, SEO técnico e conformidade RGPD. Orçamento gratuito em 24h. Contacte-nos: 910 205 459."
+          "text": "Criação de sites profissionais desde €399, incluindo design responsivo, SEO técnico e conformidade RGPD. Orçamento gratuito em 24h. Contacte-nos: 910 205 459."
         }
       },
       {
@@ -465,7 +431,7 @@ export function SEOHead({
         "name": "Quanto tempo demora a implementação de IA na minha empresa?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Projetos de automação com IA (chatbots, análise de dados, processos) demoram 4-8 semanas desde consultoria inicial até deployment completo em Portugal."
+          "text": "Projetos de automação com IA (chatbots, análise de dados, processos) demoram 1-4 semanas desde consultoria inicial até deployment completo em Portugal."
         }
       },
       {
@@ -474,30 +440,6 @@ export function SEOHead({
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Sim! Servimos clientes em todo Portugal (Porto, Lisboa, Braga, Aveiro). Reuniões remotas via Zoom e deslocações quando necessário."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "O que é DPO externo e por que a minha empresa precisa de um?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "O Encarregado de Proteção de Dados (DPO) é obrigatório para empresas que processam dados sensíveis em larga escala. Oferecemos serviço de DPO externo certificado, mais económico que contratar internamente."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Como preparar a minha empresa para a Diretiva NIS2?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "A NIS2 exige medidas de cibersegurança reforçadas para infraestruturas críticas. Fazemos auditoria de conformidade, implementação de controlos de segurança e documentação técnica completa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Qual a diferença entre consultoria RGPD e NIS2?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "RGPD foca em proteção de dados pessoais (privacidade). NIS2 foca em segurança de redes e sistemas (cibersegurança). Empresas de setores críticos precisam de ambas as conformidades em Portugal."
         }
       }
     ]
@@ -529,7 +471,7 @@ export function SEOHead({
       <meta property="og:image:type" content="image/png" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:image:alt" content="Strict.Dev - Desenvolvimento Web & IA com Conformidade NIS2/RGPD" />
+      <meta property="og:image:alt" content="Strict.Dev - Desenvolvimento Web & IA para Negócios" />
       <meta property="og:site_name" content="Strict.Dev" />
       <meta property="og:locale" content="pt_PT" />
       <meta property="og:locale:alternate" content="en_US" />
