@@ -124,7 +124,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
           status: web3Res.status,
           detail: web3Json || raw.slice(0, 300),
         },
-        502
+        400
       );
     }
 
