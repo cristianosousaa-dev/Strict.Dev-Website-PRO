@@ -1,0 +1,4 @@
+https://www.strict-dev.com/* https://strict-dev.com/:splat 301
+/security.txt /.well-known/security.txt 301
+/api/* /api/:splat 200
+/* /index.html 200

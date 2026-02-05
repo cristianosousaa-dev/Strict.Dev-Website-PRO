@@ -1,0 +1,7 @@
+# Strict.Dev - Security Policy
+# RFC 9116 compliant security.txt
+
+Contact: mailto:info@strict-dev.com
+Expires: 2027-02-04T00:00:00.000Z
+Preferred-Languages: pt, en
+Canonical: https://strict-dev.com/.well-known/security.txt

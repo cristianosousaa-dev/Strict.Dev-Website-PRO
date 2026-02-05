@@ -1,0 +1,87 @@
+# ============================================================
+# Strict.Dev - robots.txt
+# Premium Web Development & AI Consultancy - Portugal
+# Last Updated: 2026-02-04
+# ============================================================
+
+# Default Rules for All Crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*.json$
+Disallow: /*?*lead=
+Disallow: /*?*campaign=
+Crawl-delay: 1
+
+# ============================================================
+# PRIORITY CRAWLERS
+# ============================================================
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Googlebot-Mobile
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# ============================================================
+# AI & LLM CRAWLERS
+# ============================================================
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ============================================================
+# SEO TOOLS - BLOCKED
+# ============================================================
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: rogerbot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SEOkicks
+Disallow: /
+
+# ============================================================
+# SITEMAP LOCATION
+# ============================================================
+
+Sitemap: https://strict-dev.com/sitemap.xml

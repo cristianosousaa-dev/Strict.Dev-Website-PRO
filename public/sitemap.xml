@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- 
+    Sitemap Strict.Dev - Multi-Page Application
+    Location: Ponte de Lima, Viana do Castelo, Portugal
+    Services: Web Development, AI Chatbots, E-commerce, GDPR, Maintenance, Infrastructure
+    Last Updated: 2026-02-04
+  -->
+
+  <!-- ========== HOMEPAGE ========== -->
+  <url>
+    <loc>https://strict-dev.com/</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/" />
+  </url>
+
+  <!-- ========== SERVICE PAGES ========== -->
+  
+  <!-- Web Development / Criação de Sites -->
+  <url>
+    <loc>https://strict-dev.com/servicos/desenvolvimento-web</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/desenvolvimento-web?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/desenvolvimento-web?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/desenvolvimento-web" />
+  </url>
+
+  <!-- AI Agents / Agentes de IA -->
+  <url>
+    <loc>https://strict-dev.com/servicos/agentes-ia</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/agentes-ia?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/agentes-ia?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/agentes-ia" />
+  </url>
+
+  <!-- E-commerce / Loja Online -->
+  <url>
+    <loc>https://strict-dev.com/servicos/loja-online</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/loja-online?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/loja-online?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/loja-online" />
+  </url>
+
+  <!-- GDPR / RGPD Básico -->
+  <url>
+    <loc>https://strict-dev.com/servicos/rgpd-dados</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/rgpd-dados?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/rgpd-dados?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/rgpd-dados" />
+  </url>
+
+  <!-- Maintenance / Manutenção -->
+  <url>
+    <loc>https://strict-dev.com/servicos/manutencao</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/manutencao?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/manutencao?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/manutencao" />
+  </url>
+
+  <!-- Infrastructure / Infraestrutura -->
+  <url>
+    <loc>https://strict-dev.com/servicos/infraestrutura</loc>
+    <lastmod>2026-02-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://strict-dev.com/servicos/infraestrutura?lang=pt" />
+    <xhtml:link rel="alternate" hreflang="en-GB" href="https://strict-dev.com/servicos/infraestrutura?lang=en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://strict-dev.com/servicos/infraestrutura" />
+  </url>
+
+</urlset>
