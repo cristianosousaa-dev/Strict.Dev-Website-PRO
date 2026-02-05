@@ -14,34 +14,19 @@ import {
 import { toast } from "sonner";
 import { useState } from "react";
 import { trackFormSubmission } from "./GoogleAnalytics";
-import { TurnstileWidget } from "./TurnstileWidget";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { RateLimiter, FormSecurityValidator } from "../../../utils/security";
 
 export function Contact() {
-  const { t, isDarkMode } = useTheme();
-
-  const msgRequired = t?.contact?.formRequired || "Campo obrigatório";
-  const msgNameShort = t?.contact?.formNameShort || "Nome muito curto";
-  const msgEmailInvalid = t?.contact?.formEmailInvalid || "Email inválido";
-  const msgRequirementsShort =
-    t?.contact?.formRequirementsShort || "Descrição muito curta (mín. 10 caracteres)";
-  const msgTurnstileRequired = t?.contact?.turnstileRequired || "Confirma que não és um robô.";
-
-  const TURNSTILE_SITE_KEY = (import.meta as any).env?.VITE_TURNSTILE_SITE_KEY || "";
-  const useTurnstile =
-    typeof TURNSTILE_SITE_KEY === "string" && TURNSTILE_SITE_KEY.trim().length > 10;
-
+  const { t } = useTheme();
   const [formData, setFormData] = useState({
     name: "",
     company: "",
     email: "",
     requirements: "",
-    honeypot: "",
+    honeypot: "", // 🍯 Anti-bot honeypot field
   });
-
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState("");
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [fieldValid, setFieldValid] = useState<Record<string, boolean>>({});
 
@@ -51,21 +36,33 @@ export function Contact() {
 
     switch (field) {
       case "name":
-        if (!value.trim()) error = msgRequired;
-        else if (value.trim().length < 2) error = msgNameShort;
-        else isValid = true;
+        if (!value.trim()) {
+          error = "Campo obrigatório";
+        } else if (value.trim().length < 2) {
+          error = "Nome muito curto";
+        } else {
+          isValid = true;
+        }
         break;
 
       case "email":
-        if (!value.trim()) error = msgRequired;
-        else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = msgEmailInvalid;
-        else isValid = true;
+        if (!value.trim()) {
+          error = "Campo obrigatório";
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          error = "Email inválido";
+        } else {
+          isValid = true;
+        }
         break;
 
       case "requirements":
-        if (!value.trim()) error = msgRequired;
-        else if (value.trim().length < 10) error = msgRequirementsShort;
-        else isValid = true;
+        if (!value.trim()) {
+          error = "Campo obrigatório";
+        } else if (value.trim().length < 10) {
+          error = "Descrição muito curta (mín. 10 caracteres)";
+        } else {
+          isValid = true;
+        }
         break;
 
       default:
@@ -78,12 +75,13 @@ export function Contact() {
   const validateForm = () => {
     const errors: Record<string, string> = {};
 
-    (["name", "email", "requirements"] as const).forEach((field) => {
-      const { error } = validateField(field, String(formData[field] || ""));
+    ["name", "email", "requirements"].forEach((field) => {
+      const { error } = validateField(
+        field,
+        formData[field as keyof typeof formData] as string
+      );
       if (error) errors[field] = error;
     });
-
-    if (useTurnstile && !turnstileToken) errors.turnstile = msgTurnstileRequired;
 
     return errors;
   };
@@ -96,28 +94,32 @@ export function Contact() {
     if (error) {
       setFieldErrors({ ...fieldErrors, [field]: error });
       setFieldValid({ ...fieldValid, [field]: false });
-      return;
+    } else {
+      const newErrors = { ...fieldErrors };
+      delete newErrors[field];
+      setFieldErrors(newErrors);
+      setFieldValid({ ...fieldValid, [field]: isValid });
     }
-
-    const newErrors = { ...fieldErrors };
-    delete newErrors[field];
-    setFieldErrors(newErrors);
-    setFieldValid({ ...fieldValid, [field]: isValid });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const securityCheck = FormSecurityValidator.validate("contact_form", formData.honeypot);
+    // 🛡️ SECURITY VALIDATION (Rate Limiting + Honeypot)
+    const securityCheck = FormSecurityValidator.validate(
+      "contact_form",
+      formData.honeypot
+    );
 
     if (!securityCheck.valid) {
       if (securityCheck.reason === "bot_detected") {
+        // Silent fail for bots - don't show error message
         if (import.meta.env.DEV) console.warn("[Security] Bot detected via honeypot");
         return;
       }
 
       if (securityCheck.reason === "rate_limit_exceeded") {
-        toast.error("Demasiadas tentativas", {
+        toast.error("Demasiadas Tentativas", {
           description: `Por favor aguarde ${securityCheck.timeRemaining}s antes de enviar novamente.`,
           duration: 5000,
           icon: <AlertTriangle className="w-4 h-4" />,
@@ -126,6 +128,7 @@ export function Contact() {
       }
     }
 
+    // Validação
     const errors = validateForm();
     setFieldErrors(errors);
 
@@ -142,25 +145,39 @@ export function Contact() {
     try {
       RateLimiter.recordSubmission("contact_form");
 
-      const response = await fetch("/api/contact", {
+      // ✅ Lê a key do env (não fica no GitHub)
+      const WEB3FORMS_KEY = (import.meta as any).env?.VITE_WEB3FORMS_ACCESS_KEY || "";
+      if (!WEB3FORMS_KEY || String(WEB3FORMS_KEY).trim().length < 10) {
+        throw new Error("Falta configurar VITE_WEB3FORMS_ACCESS_KEY.");
+      }
+
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+
           name: formData.name,
           email: formData.email,
-          company: formData.company || "",
-          requirements: formData.requirements,
-          honeypot: formData.honeypot,
-          turnstileToken,
+          company: formData.company || "N/A",
+          message: formData.requirements,
+
+          // ✅ honeypot do Web3Forms
+          botcheck: formData.honeypot || "",
+
+          subject: `Novo Contato - ${formData.name}`,
+          from_name: "Strict.Dev Website",
+          replyto: formData.email,
         }),
       });
 
-      const result = (await response.json().catch(() => null)) as any;
-      if (!response.ok || !result?.success) {
-        throw new Error(result?.message || "Erro ao enviar formulário");
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Erro ao enviar formulário");
       }
 
       toast.success(t.toast.contactSuccess, {
@@ -177,8 +194,6 @@ export function Contact() {
         requirements: "",
         honeypot: "",
       });
-
-      setTurnstileToken("");
       setFieldErrors({});
       setFieldValid({});
     } catch (error: any) {
@@ -199,14 +214,13 @@ export function Contact() {
     <section className="bg-white dark:bg-[#0a0a0a] py-12 md:py-20" id="contact">
       <div className="container mx-auto px-3 md:px-6 max-w-7xl">
         <div className="lg:hidden mb-8">
-          <span className="text-[#2f5e50] font-bold text-[10px] uppercase tracking-widest mb-2 block">
+          <span className="text-[#2f5e50] font-bold text-[0.5625rem] uppercase tracking-widest mb-2 block">
             {t.contact.label}
           </span>
-          {/* MAIS PEQUENO NO MOBILE */}
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight mb-3">
+          <h2 className="text-xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight mb-3">
             {t.contact.title}
           </h2>
-          <p className="text-neutral-500 dark:text-neutral-400 mb-0 max-w-sm text-[13px] leading-relaxed">
+          <p className="text-neutral-500 dark:text-neutral-400 mb-0 max-w-sm text-[0.6875rem] leading-[1.5]">
             {t.contact.subtitle}
           </p>
         </div>
@@ -214,62 +228,51 @@ export function Contact() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
           <div className="order-3 lg:order-1">
             <div className="hidden lg:block">
-              <span className="text-[#2f5e50] font-bold text-[10px] uppercase tracking-widest mb-3 block">
+              <span className="text-[#2f5e50] font-bold text-[9px] uppercase tracking-widest mb-3 block">
                 {t.contact.label}
               </span>
-
-              {/* MAIS PEQUENO NO DESKTOP */}
-              <h2 className="text-4xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight mb-4">
+              <h2 className="text-3xl font-bold text-neutral-900 dark:text-neutral-100 tracking-tight mb-4">
                 {t.contact.title}
               </h2>
-
-              <p className="text-neutral-500 dark:text-neutral-400 mb-8 max-w-sm text-[13px] leading-relaxed">
+              <p className="text-neutral-500 dark:text-neutral-400 mb-8 max-w-sm text-xs leading-relaxed">
                 {t.contact.subtitle}
               </p>
             </div>
 
             <div className="space-y-5 md:space-y-6 border-t border-neutral-100 dark:border-[#1a1a1a] pt-5 md:pt-6">
               <div className="group cursor-pointer">
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-1">
+                <p className="text-[0.5rem] md:text-[9px] font-bold uppercase tracking-widest text-neutral-400 mb-0.5 md:mb-1">
                   {t.contact.email}
                 </p>
-
-                {/* EMAIL MAIS PEQUENO */}
                 <a
                   href="mailto:info@strict-dev.com"
-                  className="text-base text-neutral-900 dark:text-neutral-100 hover:text-[#2f5e50] transition-colors flex items-center gap-2 font-semibold cursor-pointer"
+                  className="text-sm md:text-base text-neutral-900 dark:text-neutral-100 hover:text-[#2f5e50] transition-colors flex items-center gap-2 font-medium cursor-pointer"
                 >
                   info@strict-dev.com
-                  <ArrowUpRight className="w-4 h-4 opacity-50 group-hover:opacity-100 transition-opacity" />
+                  <ArrowUpRight className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" />
                 </a>
               </div>
-
               <div>
-                <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 mb-1">
+                <p className="text-[0.5rem] md:text-[9px] font-bold uppercase tracking-widest text-neutral-400 mb-0.5 md:mb-1">
                   {t.contact.location}
                 </p>
-
-                {/* LOCALIZAÇÃO MAIS PEQUENA */}
-                <p className="text-base text-neutral-900 dark:text-neutral-100 font-semibold">
+                <p className="text-sm md:text-base text-neutral-900 dark:text-neutral-100 font-medium">
                   {t.contact.locationValue}
                 </p>
               </div>
 
               <div className="border-t border-neutral-100 dark:border-[#1a1a1a] pt-5 md:pt-6">
-                <div className="flex items-start gap-3">
-                  <Clock className="w-4 h-4 text-[#2f5e50] mt-0.5 flex-shrink-0" />
+                <div className="flex items-start gap-2.5 md:gap-3">
+                  <Clock className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] mt-0.5 flex-shrink-0" />
                   <div>
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-neutral-900 dark:text-neutral-100 mb-2">
+                    <p className="text-[0.5rem] md:text-[9px] font-bold uppercase tracking-widest text-neutral-900 dark:text-neutral-100 mb-1.5 md:mb-2">
                       {t.contact.scheduleLabel}
                     </p>
-
-                    {/* HORÁRIOS MAIS PEQUENOS */}
-                    <div className="space-y-1 text-[13px] text-neutral-700 dark:text-neutral-300">
+                    <div className="space-y-0.5 md:space-y-1 text-[0.6875rem] md:text-xs text-neutral-700 dark:text-neutral-300">
                       <p>{t.contact.scheduleWeekday}</p>
                       <p>{t.contact.scheduleWeekend}</p>
                     </div>
-
-                    <p className="text-[10px] text-[#2f5e50] mt-3 font-bold uppercase tracking-wider">
+                    <p className="text-[0.5625rem] md:text-[10px] text-[#2f5e50] mt-2 md:mt-3 font-bold uppercase tracking-wider">
                       {t.contact.scheduleGuarantee}
                     </p>
                   </div>
@@ -279,22 +282,22 @@ export function Contact() {
           </div>
 
           <div className="order-1 lg:order-2 bg-white dark:bg-[#0a0a0a] shadow-sm border border-neutral-100 dark:border-[#1a1a1a] p-6 md:p-8">
-            <div className="mb-6 md:mb-8 flex flex-wrap gap-4 pb-5 md:pb-6 border-b border-neutral-100 dark:border-[#1a1a1a]">
+            <div className="mb-6 md:mb-8 flex flex-wrap gap-3 md:gap-4 pb-5 md:pb-6 border-b border-neutral-100 dark:border-[#1a1a1a]">
               <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4 text-[#2f5e50] flex-shrink-0" />
-                <span className="text-[11px] text-neutral-600 dark:text-neutral-400 font-medium">
+                <Lock className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] flex-shrink-0" />
+                <span className="text-[0.5625rem] md:text-[10px] text-neutral-600 dark:text-neutral-400 font-medium">
                   {t.contact.reassurance1}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#2f5e50] flex-shrink-0" />
-                <span className="text-[11px] text-neutral-600 dark:text-neutral-400 font-medium">
+                <Clock className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] flex-shrink-0" />
+                <span className="text-[0.5625rem] md:text-[10px] text-neutral-600 dark:text-neutral-400 font-medium">
                   {t.contact.reassurance2}
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <Shield className="w-4 h-4 text-[#2f5e50] flex-shrink-0" />
-                <span className="text-[11px] text-neutral-600 dark:text-neutral-400 font-medium">
+                <Shield className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] flex-shrink-0" />
+                <span className="text-[0.5625rem] md:text-[10px] text-neutral-600 dark:text-neutral-400 font-medium">
                   {t.contact.reassurance3}
                 </span>
               </div>
@@ -303,7 +306,7 @@ export function Contact() {
             <form className="space-y-5 md:space-y-6" onSubmit={handleSubmit} noValidate>
               <div className="grid grid-cols-2 gap-6">
                 <div className="space-y-1 group relative">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
                     {t.contact.formName} *
                   </label>
                   <div className="relative">
@@ -319,7 +322,7 @@ export function Contact() {
                           : fieldValid.name
                           ? "border-[#2f5e50]"
                           : "border-neutral-200 dark:border-[#1a1a1a]"
-                      } rounded-none px-0 pr-6 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-sm`}
+                      } rounded-none px-0 pr-6 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-xs`}
                       placeholder={t.contact.formNamePlaceholder}
                       disabled={isSubmitting}
                     />
@@ -327,11 +330,15 @@ export function Contact() {
                       <CheckCircle className="absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2f5e50]" />
                     )}
                   </div>
-                  {fieldErrors.name && <p className="text-xs text-red-600 mt-1">{fieldErrors.name}</p>}
+                  {fieldErrors.name && (
+                    <p className="text-[10px] text-red-500 mt-1">
+                      {t.contact.formNameShort || fieldErrors.name}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-1 group">
-                  <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
+                  <label className="text-[9px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
                     {t.contact.formCompany}
                   </label>
                   <Input
@@ -339,7 +346,7 @@ export function Contact() {
                     autoComplete="organization"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="bg-transparent dark:text-neutral-100 border-0 border-b border-neutral-200 dark:border-[#1a1a1a] rounded-none px-0 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-sm"
+                    className="bg-transparent dark:text-neutral-100 border-0 border-b border-neutral-200 dark:border-[#1a1a1a] rounded-none px-0 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-xs"
                     placeholder={t.contact.formCompanyPlaceholder}
                     disabled={isSubmitting}
                   />
@@ -347,7 +354,7 @@ export function Contact() {
               </div>
 
               <div className="space-y-1 group relative">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
+                <label className="text-[9px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
                   {t.contact.formEmail} *
                 </label>
                 <div className="relative">
@@ -365,7 +372,7 @@ export function Contact() {
                         : fieldValid.email
                         ? "border-[#2f5e50]"
                         : "border-neutral-200 dark:border-[#1a1a1a]"
-                    } rounded-none px-0 pr-6 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-sm`}
+                    } rounded-none px-0 pr-6 h-10 focus-visible:ring-0 focus-visible:border-[#2f5e50] transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-xs`}
                     placeholder={t.contact.formEmailPlaceholder}
                     disabled={isSubmitting}
                   />
@@ -373,11 +380,15 @@ export function Contact() {
                     <CheckCircle className="absolute right-1 top-1/2 -translate-y-1/2 w-4 h-4 text-[#2f5e50]" />
                   )}
                 </div>
-                {fieldErrors.email && <p className="text-xs text-red-600 mt-1">{fieldErrors.email}</p>}
+                {fieldErrors.email && (
+                  <p className="text-[10px] text-red-500 mt-1">
+                    {t.contact.formEmailInvalid || fieldErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1 group relative">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
+                <label className="text-[9px] font-bold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 group-focus-within:text-[#2f5e50] transition-colors">
                   {t.contact.formRequirements} *
                 </label>
                 <div className="relative">
@@ -392,7 +403,7 @@ export function Contact() {
                         : fieldValid.requirements
                         ? "border-[#2f5e50]"
                         : "border-neutral-200 dark:border-[#1a1a1a]"
-                    } rounded-none px-0 pr-6 min-h-[90px] focus-visible:ring-0 focus-visible:border-[#2f5e50] resize-none transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-sm leading-relaxed`}
+                    } rounded-none px-0 pr-6 min-h-[80px] focus-visible:ring-0 focus-visible:border-[#2f5e50] resize-none transition-colors placeholder:text-neutral-300 dark:placeholder:text-neutral-600 text-xs leading-relaxed`}
                     placeholder={t.contact.formRequirementsPlaceholder}
                     disabled={isSubmitting}
                   />
@@ -401,7 +412,9 @@ export function Contact() {
                   )}
                 </div>
                 {fieldErrors.requirements && (
-                  <p className="text-xs text-red-600 mt-1">{fieldErrors.requirements}</p>
+                  <p className="text-[10px] text-red-500 mt-1">
+                    {t.contact.formRequirementsShort || fieldErrors.requirements}
+                  </p>
                 )}
               </div>
 
@@ -427,46 +440,6 @@ export function Contact() {
                   autoComplete="off"
                 />
               </div>
-
-              {useTurnstile && (
-                <div
-                  className={
-                    isDarkMode
-                      ? "mt-4 rounded-xl border border-white/10 bg-white/5 p-4"
-                      : "mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-4"
-                  }
-                >
-                  <div
-                    className={
-                      isDarkMode
-                        ? "flex items-center gap-2 text-sm text-white/80"
-                        : "flex items-center gap-2 text-sm text-neutral-700"
-                    }
-                  >
-                    <Shield className={isDarkMode ? "h-4 w-4 text-white/70" : "h-4 w-4 text-neutral-700"} />
-                    <span>{t?.contact?.turnstileLabel || "Proteção anti spam"}</span>
-                  </div>
-                  <div className="mt-3">
-                    <TurnstileWidget
-                      siteKey={TURNSTILE_SITE_KEY}
-                      theme={isDarkMode ? "dark" : "light"}
-                      onToken={(token) => {
-                        setTurnstileToken(token);
-                        setFieldErrors((prev) => {
-                          const next = { ...prev };
-                          delete next.turnstile;
-                          return next;
-                        });
-                      }}
-                    />
-                  </div>
-                  {fieldErrors.turnstile && (
-                    <p className={isDarkMode ? "mt-2 text-sm text-red-400" : "mt-2 text-sm text-red-600"}>
-                      {fieldErrors.turnstile}
-                    </p>
-                  )}
-                </div>
-              )}
 
               <div className="pt-2">
                 <Button
