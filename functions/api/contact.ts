@@ -15,10 +15,7 @@ type Payload = {
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-    },
+    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
   });
 }
 
@@ -30,10 +27,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
     const accessKey = (context.env.WEB3FORMS_ACCESS_KEY || "").trim();
     if (!accessKey) {
-      return json(
-        { success: false, message: "Configuração em falta: WEB3FORMS_ACCESS_KEY" },
-        500
-      );
+      return json({ success: false, message: "Configuração em falta: WEB3FORMS_ACCESS_KEY" }, 500);
     }
 
     let body: Payload;
@@ -57,13 +51,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (requirements.length < 10)
       return json({ success: false, message: "Descrição muito curta" }, 400);
 
+    // Turnstile só se token for enviado
     const turnstileSecret = (context.env.TURNSTILE_SECRET_KEY || "").trim();
     if (turnstileToken) {
       if (!turnstileSecret) {
-        return json(
-          { success: false, message: "Configuração em falta: TURNSTILE_SECRET_KEY" },
-          500
-        );
+        return json({ success: false, message: "Configuração em falta: TURNSTILE_SECRET_KEY" }, 500);
       }
 
       const ip = context.request.headers.get("CF-Connecting-IP") || "";
