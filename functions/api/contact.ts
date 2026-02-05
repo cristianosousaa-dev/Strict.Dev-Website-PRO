@@ -1,5 +1,5 @@
 export interface Env {
-  WEB3FORMS_ACCESS_KEY: string;
+  WEB3FORMS_ACCESS_KEY?: string;
   TURNSTILE_SECRET_KEY?: string;
 }
 
@@ -15,7 +15,10 @@ type Payload = {
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+    },
   });
 }
 
@@ -25,9 +28,18 @@ function isEmail(value: string) {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   try {
-    const accessKey = (context.env.WEB3FORMS_ACCESS_KEY || "").trim();
+    // aceita os dois nomes para não haver dúvidas
+    const envAny = context.env as any;
+    const accessKey = String(
+      context.env.WEB3FORMS_ACCESS_KEY || envAny.WEB3FORMS_ACCESS_KEY || ""
+    ).trim();
+
     if (!accessKey) {
-      return json({ success: false, message: "Configuração em falta: WEB3FORMS_ACCESS_KEY" }, 500);
+      console.log("WEB3FORMS key em falta");
+      return json(
+        { success: false, message: "Configuração em falta: WEB3FORMS_ACCESS_KEY" },
+        500
+      );
     }
 
     let body: Payload;
@@ -51,11 +63,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (requirements.length < 10)
       return json({ success: false, message: "Descrição muito curta" }, 400);
 
-    // Turnstile só se token for enviado
-    const turnstileSecret = (context.env.TURNSTILE_SECRET_KEY || "").trim();
+    // Turnstile só se houver token
+    const turnstileSecret = String(context.env.TURNSTILE_SECRET_KEY || envAny.TURNSTILE_SECRET_KEY || "").trim();
     if (turnstileToken) {
       if (!turnstileSecret) {
-        return json({ success: false, message: "Configuração em falta: TURNSTILE_SECRET_KEY" }, 500);
+        return json(
+          { success: false, message: "Configuração em falta: TURNSTILE_SECRET_KEY" },
+          500
+        );
       }
 
       const ip = context.request.headers.get("CF-Connecting-IP") || "";
@@ -75,30 +90,47 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       }
     }
 
+    // Web3Forms: usa os campos standard
+    const payload = {
+      access_key: accessKey,
+      subject: "Novo pedido via Strict.Dev",
+      name,
+      email,
+      message: requirements,
+      company,
+    };
+
     const web3Res = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({
-        access_key: accessKey,
-        subject: "Novo pedido via Strict.Dev",
-        from_name: name,
-        email,
-        company,
-        message: requirements,
-      }),
+      body: JSON.stringify(payload),
     });
 
-    const web3Json = (await web3Res.json().catch(() => null)) as any;
+    const raw = await web3Res.text();
+    let web3Json: any = null;
+    try {
+      web3Json = JSON.parse(raw);
+    } catch {
+      // fica null e mostramos raw em debug
+    }
+
+    console.log("Web3Forms status:", web3Res.status);
 
     if (!web3Res.ok || !web3Json?.success) {
       return json(
-        { success: false, message: "Falha no serviço de email", detail: web3Json || null },
+        {
+          success: false,
+          message: "Web3Forms rejeitou o pedido",
+          status: web3Res.status,
+          detail: web3Json || raw.slice(0, 300),
+        },
         502
       );
     }
 
     return json({ success: true }, 200);
   } catch (err: any) {
+    console.log("Erro interno:", String(err?.message || err));
     return json(
       { success: false, message: "Erro interno na Function", detail: String(err?.message || err) },
       500
