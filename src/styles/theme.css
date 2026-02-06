@@ -460,9 +460,17 @@ html.loading * {
    ============================================================ */
 
 /* Webkit (Chrome, Safari, Edge) - Base */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+@media (min-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+}
+@media (max-width: 767px) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
 }
 
 /* Light Mode */
@@ -473,7 +481,7 @@ html:not(.dark)::-webkit-scrollbar-track {
 
 html:not(.dark)::-webkit-scrollbar-thumb {
   background: #2f5e50;
-  border: 3px solid #ffffff;
+  border: 2px solid #ffffff;
   border-radius: 0;
 }
 
@@ -497,7 +505,7 @@ html.dark::-webkit-scrollbar-track {
 
 html.dark::-webkit-scrollbar-thumb {
   background: #2f5e50;
-  border: 3px solid #0a0a0a;
+  border: 2px solid #0a0a0a;
   border-radius: 0;
 }
 
@@ -514,12 +522,23 @@ html.dark::-webkit-scrollbar-corner {
 }
 
 /* Firefox */
-html:not(.dark) {
-  scrollbar-width: auto;
-  scrollbar-color: #2f5e50 #ffffff;
+@media (min-width: 768px) {
+  html:not(.dark) {
+    scrollbar-width: thin;
+    scrollbar-color: #2f5e50 #ffffff;
+  }
+  html.dark {
+    scrollbar-width: thin;
+    scrollbar-color: #2f5e50 #0a0a0a;
+  }
 }
-
-html.dark {
-  scrollbar-width: auto;
-  scrollbar-color: #2f5e50 #0a0a0a;
+@media (max-width: 767px) {
+  html:not(.dark) {
+    scrollbar-width: auto;
+    scrollbar-color: #2f5e50 #ffffff;
+  }
+  html.dark {
+    scrollbar-width: auto;
+    scrollbar-color: #2f5e50 #0a0a0a;
+  }
 }
