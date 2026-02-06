@@ -63,8 +63,26 @@ export function Services() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
-        delayChildren: 0
+        staggerChildren: 0.08,
+        delayChildren: 0.05
+      }
+    }
+  };
+
+  const cardRevealVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 40,
+      scale: 0.95
+    },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 20
       }
     }
   };
@@ -89,18 +107,16 @@ export function Services() {
           whileInView="visible"
           viewport={{ 
             once: true, 
-            margin: typeof window !== 'undefined' && window.innerWidth < 768 ? "-50px" : "-100px",
-            amount: typeof window !== 'undefined' && window.innerWidth < 768 ? 0.1 : 0.2 
+            margin: "-80px",
+            amount: 0.05
           }}
         >
             {serviceIcons.map((Icon, idx) => (
                 <motion.div 
                     key={idx}
                     className="relative p-3 md:p-5 bg-white dark:bg-[#0a0a0a] will-change-transform border border-neutral-200 dark:border-[#1a1a1a] shadow-sm overflow-hidden hover:border-[#2f5e50] flex flex-col h-full"
-                    variants={cardHoverVariants}
-                    initial="rest"
-                    whileInView="rest"
-                    whileHover="hover"
+                    variants={cardRevealVariants}
+                    whileHover={cardHoverVariants.hover}
                     viewport={{ 
                       once: true, 
                       margin: typeof window !== 'undefined' && window.innerWidth < 768 ? "0px" : "-50px"
