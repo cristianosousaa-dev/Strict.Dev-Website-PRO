@@ -86,7 +86,13 @@ export function ProjectConfigurator() {
       <div className="max-w-5xl mx-auto">
         
         {/* Header - Ultra Compact */}
-        <div className="mb-6">
+        <motion.div 
+          className="mb-6"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        >
           <div className="flex items-center gap-2 mb-2">
             <div className="h-px w-6 bg-[#2f5e50]" />
             <span className="text-[8px] font-bold uppercase tracking-[0.25em] text-[#2f5e50]">
@@ -99,19 +105,44 @@ export function ProjectConfigurator() {
           <p className="text-[10px] text-neutral-600 dark:text-neutral-400 max-w-xl">
             {t.projectConfigurator.subtitle}
           </p>
-        </div>
+        </motion.div>
 
         {/* Services Grid - 2 Columns Mobile (Compact & Symmetrical) */}
-        <div className="grid grid-cols-2 gap-2 mb-4">
+        <motion.div 
+          className="grid grid-cols-2 gap-2 mb-4"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-60px", amount: 0.05 }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.07,
+                delayChildren: 0.05
+              }
+            }
+          }}
+        >
           {services.map((s, i) => {
             const active = selected.has(s.id);
             return (
               <motion.button
                 key={s.id}
                 onClick={() => toggle(s.id)}
-                initial={{ opacity: 0, y: 5 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.03 }}
+                variants={{
+                  hidden: { opacity: 0, y: 35, scale: 0.95 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    scale: 1,
+                    transition: {
+                      type: "spring",
+                      stiffness: 100,
+                      damping: 20
+                    }
+                  }
+                }}
                 className={`
                   relative p-2.5 md:p-4 text-left transition-all border flex flex-col h-full
                   ${active 
@@ -170,16 +201,22 @@ export function ProjectConfigurator() {
               </motion.button>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Summary Bar - Compact */}
-        <div className={`
-          p-2 md:p-4 transition-all
-          ${selected.size > 0 
-            ? 'bg-[#2f5e50]' 
-            : 'bg-white dark:bg-[#0f0f0f] border border-neutral-200 dark:border-[#1a1a1a]'
-          }
-        `}>
+        <motion.div 
+          className={`
+            p-2 md:p-4 transition-all
+            ${selected.size > 0 
+              ? 'bg-[#2f5e50]' 
+              : 'bg-white dark:bg-[#0f0f0f] border border-neutral-200 dark:border-[#1a1a1a]'
+            }
+          `}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.3 }}
+        >
           {selected.size > 0 ? (
             <motion.div
               initial={{ opacity: 0 }}
@@ -239,7 +276,7 @@ export function ProjectConfigurator() {
               </p>
             </div>
           )}
-        </div>
+        </motion.div>
 
       </div>
     </section>
