@@ -7,6 +7,7 @@ import { NeuralCore } from "./NeuralCore";
 import { BuildAnimation } from "./BuildAnimation";
 import { useIsMobile } from "../../../utils/responsive";
 import { smoothScrollToElement } from "../../../utils/scroll";
+import { PageSpeedScore } from "./PageSpeedScore";
 
 interface HeroProps {
   onShowAnimation: () => void;
@@ -188,7 +189,10 @@ export function Hero({ onShowAnimation, shouldHideCore, showAnimation, onCloseAn
                   </Button>
               </div>
 
-              <div className="flex flex-col md:flex-row gap-2 md:gap-6 border-t border-neutral-200 dark:border-[#1a1a1a] pt-3.5 md:pt-6">
+              {/* PageSpeed Insights — Social Proof com link para live test */}
+              <PageSpeedScore />
+
+              <div className="flex flex-col md:flex-row gap-2 md:gap-6 pt-3.5 md:pt-6">
                   <div className="flex items-center gap-1.5 md:gap-2">
                       <CheckCircle className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] flex-shrink-0" />
                       <span className="text-[0.5625rem] md:text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">{t.hero.badge1}</span>
@@ -202,6 +206,7 @@ export function Hero({ onShowAnimation, shouldHideCore, showAnimation, onCloseAn
                       <span className="text-[0.5625rem] md:text-xs font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wide">{t.hero.badge3}</span>
                   </div>
               </div>
+
               </motion.div>
           </div>
         </div>
