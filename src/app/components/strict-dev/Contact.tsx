@@ -13,9 +13,39 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
+import { motion } from "motion/react";
 import { trackFormSubmission } from "./GoogleAnalytics";
 import { useTheme } from "../../../contexts/ThemeContext";
 import { RateLimiter, FormSecurityValidator } from "../../../utils/security";
+
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.05,
+    },
+  },
+};
+
+const leftVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 80, damping: 20 },
+  },
+};
+
+const rightVariants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { type: "spring", stiffness: 80, damping: 20 },
+  },
+};
 
 export function Contact() {
   const { t } = useTheme();
@@ -24,7 +54,7 @@ export function Contact() {
     company: "",
     email: "",
     requirements: "",
-    honeypot: "", // 🍯 Anti-bot honeypot field
+    honeypot: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -105,7 +135,6 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 🛡️ SECURITY VALIDATION (Rate Limiting + Honeypot)
     const securityCheck = FormSecurityValidator.validate(
       "contact_form",
       formData.honeypot
@@ -113,7 +142,6 @@ export function Contact() {
 
     if (!securityCheck.valid) {
       if (securityCheck.reason === "bot_detected") {
-        // Silent fail for bots - don't show error message
         if (import.meta.env.DEV) console.warn("[Security] Bot detected via honeypot");
         return;
       }
@@ -128,7 +156,6 @@ export function Contact() {
       }
     }
 
-    // Validação
     const errors = validateForm();
     setFieldErrors(errors);
 
@@ -145,7 +172,6 @@ export function Contact() {
     try {
       RateLimiter.recordSubmission("contact_form");
 
-      // ✅ Lê a key do env (não fica no GitHub)
       const WEB3FORMS_KEY = (import.meta as any).env?.VITE_WEB3FORMS_ACCESS_KEY || "";
       if (!WEB3FORMS_KEY || String(WEB3FORMS_KEY).trim().length < 10) {
         throw new Error("Falta configurar VITE_WEB3FORMS_ACCESS_KEY.");
@@ -159,15 +185,11 @@ export function Contact() {
         },
         body: JSON.stringify({
           access_key: WEB3FORMS_KEY,
-
           name: formData.name,
           email: formData.email,
           company: formData.company || "N/A",
           message: formData.requirements,
-
-          // ✅ honeypot do Web3Forms
           botcheck: formData.honeypot || "",
-
           subject: `Novo Contato - ${formData.name}`,
           from_name: "Strict.Dev Website",
           replyto: formData.email,
@@ -225,8 +247,15 @@ export function Contact() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
-          <div className="order-3 lg:order-1">
+        <motion.div
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px", amount: 0.05 }}
+        >
+          {/* Left column - info */}
+          <motion.div className="order-3 lg:order-1" variants={leftVariants}>
             <div className="hidden lg:block">
               <span className="text-[#2f5e50] font-bold text-[9px] uppercase tracking-widest mb-3 block">
                 {t.contact.label}
@@ -279,9 +308,13 @@ export function Contact() {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="order-1 lg:order-2 bg-white dark:bg-[#0a0a0a] shadow-sm border border-neutral-100 dark:border-[#1a1a1a] p-6 md:p-8">
+          {/* Right column - form */}
+          <motion.div
+            className="order-1 lg:order-2 bg-white dark:bg-[#0a0a0a] shadow-sm border border-neutral-100 dark:border-[#1a1a1a] p-6 md:p-8"
+            variants={rightVariants}
+          >
             <div className="mb-6 md:mb-8 flex flex-wrap gap-3 md:gap-4 pb-5 md:pb-6 border-b border-neutral-100 dark:border-[#1a1a1a]">
               <div className="flex items-center gap-2">
                 <Lock className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#2f5e50] flex-shrink-0" />
@@ -461,8 +494,8 @@ export function Contact() {
                 </Button>
               </div>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
