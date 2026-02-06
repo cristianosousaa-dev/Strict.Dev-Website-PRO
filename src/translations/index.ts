@@ -113,8 +113,8 @@ export const translations = {
     // CTA
     cta: {
       label: "Parceria",
-      title: "Desenvolvimento e conformidade digital numa abordagem integrada.",
-      subtitle: "Centralize o desenvolvimento técnico e a implementação de boas práticas de conformidade RGPD numa única estrutura.",
+      title: "Presença digital orientada para crescimento no Google e conformidade.",
+      subtitle: "Estrutura técnica, performance e otimização para pesquisa no Google, com integração de agentes de IA e abordagem RGPD consistente, segura e alinhada com boas práticas.",
       button: "Agendar Reunião — Resposta em 24h",
       offerBadge: "Primeira Consultoria GRÁTIS",
       trustSignal1: "Resposta em 24h",
@@ -514,8 +514,8 @@ export const translations = {
     // CTA
     cta: {
       label: "Partnership",
-      title: "Development and digital compliance in an integrated approach.",
-      subtitle: "Centralize technical development and the implementation of GDPR best practices within a single structure.",
+      title: "Digital presence driven by Google growth and compliance.",
+      subtitle: "Technical structure, performance and Google search optimization, with AI agent integration and a consistent, secure GDPR approach aligned with best practices.",
       button: "Schedule Meeting — 24h Response",
       offerBadge: "First FREE Consultation",
       trustSignal1: "24h Response",
