@@ -1,0 +1,12 @@
+# Strict.Dev - Security Policy
+# RFC 9116 compliant security.txt
+
+Contact: info@strict-dev.com
+Expires: 2027-02-19T00:00:00.000Z
+Preferred-Languages: pt, en
+Canonical: https://strict-dev.com/.well-known/security.txt
+
+# Security Reporting
+# If you discover a security vulnerability, please report it to:
+# Email: info@strict-dev.com
+# PGP Key: https://strict-dev.com/pgp-key.asc (if available)

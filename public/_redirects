@@ -1,0 +1,13 @@
+# ============================================================
+# Strict.Dev - Cloudflare Pages Redirects & Rewrites
+# SPA Fallback + www redirect + RFC 9116
+# ============================================================
+
+# Redirect www to non-www
+https://www.strict-dev.com/* https://strict-dev.com/:splat 301!
+
+# RFC 9116: security.txt at well-known path
+/.well-known/security.txt /security.txt 200
+
+# SPA fallback - serve index.html for all routes (except static files)
+/*    /index.html   200

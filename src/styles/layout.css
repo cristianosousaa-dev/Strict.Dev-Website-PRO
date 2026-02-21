@@ -1,0 +1,70 @@
+/**
+ * LAYOUT OVERRIDES - Desktop Wide Layout (Swiss Style)
+ * Containers largos mas com margem lateral confortavel.
+ * Mobile permanece inalterado.
+ */
+
+@layer utilities {
+  /* Desktop (>=1024px): ~88vw, cap 1320px */
+  @media (min-width: 1024px) {
+    .container.mx-auto {
+      max-width: min(88vw, 1320px) !important;
+    }
+    
+    .container.mx-auto.px-3,
+    .container.mx-auto.px-6 {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+    }
+    
+    .max-w-7xl {
+      max-width: min(88vw, 1320px) !important;
+    }
+    
+    .max-w-5xl {
+      max-width: min(82vw, 1100px) !important;
+    }
+  }
+  
+  /* Desktop XL (>=1280px): ~90vw, cap 1440px */
+  @media (min-width: 1280px) {
+    .container.mx-auto {
+      max-width: min(90vw, 1440px) !important;
+    }
+    
+    .container.mx-auto.px-3,
+    .container.mx-auto.px-6 {
+      padding-left: 2.5rem !important;
+      padding-right: 2.5rem !important;
+    }
+    
+    .max-w-7xl {
+      max-width: min(90vw, 1440px) !important;
+    }
+    
+    .max-w-5xl {
+      max-width: min(84vw, 1200px) !important;
+    }
+  }
+  
+  /* Desktop 2XL (>=1536px): ~92vw, cap 1600px */
+  @media (min-width: 1536px) {
+    .container.mx-auto {
+      max-width: min(92vw, 1600px) !important;
+    }
+    
+    .container.mx-auto.px-3,
+    .container.mx-auto.px-6 {
+      padding-left: 3rem !important;
+      padding-right: 3rem !important;
+    }
+    
+    .max-w-7xl {
+      max-width: min(92vw, 1600px) !important;
+    }
+    
+    .max-w-5xl {
+      max-width: min(86vw, 1360px) !important;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/* Font imports for Strict.Dev */
+/* Preload critical fonts to improve FCP and LCP */
+
+/* System font stack - fallback rápido */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 
+               'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', 
+               sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 
+               'Liberation Mono', 'Courier New', monospace;
+}
