@@ -56,7 +56,7 @@ export function LiveChatWidget() {
             {/* Header */}
             <div className="bg-white dark:bg-[#0a0a0a] p-4 border-b border-slate-200 dark:border-[#0f0f0f]">
               <div className="flex items-center gap-2.5">
-                <img src={logo} alt={t.liveChat.title} className="h-8" width="80" height="32" />
+                <img src={logo} alt={t.liveChat.title} className="h-8 w-8 object-contain rounded" width="32" height="32" />
                 <div>
                   <h3 className="text-slate-900 dark:text-white font-bold text-xs uppercase tracking-wider">
                     {t.liveChat.title}
