@@ -1,4 +1,3 @@
-// src/pages/HomePage.tsx
 import { useMemo, useState } from "react";
 import { Hero } from "../components/strict-dev/Hero";
 import { Services } from "../components/strict-dev/Services";
@@ -197,14 +196,12 @@ export function HomePage() {
         ogType="website"
         structuredData={structuredData}
       />
-
-      <Hero
+      <Hero 
         onShowAnimation={() => setShowAnimation(true)}
         shouldHideCore={showAnimation}
         showAnimation={showAnimation}
         onCloseAnimation={() => setShowAnimation(false)}
       />
-
       <SectionDivider />
       <Services />
       <TechStack />
@@ -218,9 +215,8 @@ export function HomePage() {
       <SectionDivider />
       <Contact />
       <SectionDivider />
-
       <div id="faq">
-        <FAQSection items={faqItems} language={language} />
+        <FAQSection items={faqItems} language={language} includeSchema={false} />
       </div>
     </>
   );
