@@ -1,4 +1,5 @@
-import { useState } from "react";
+// src/pages/HomePage.tsx
+import { useMemo, useState } from "react";
 import { Hero } from "../components/strict-dev/Hero";
 import { Services } from "../components/strict-dev/Services";
 import { TechStack } from "../components/strict-dev/TechStack";
@@ -17,37 +18,174 @@ export function HomePage() {
   const [showAnimation, setShowAnimation] = useState(false);
   const { language } = useTheme();
 
-  const faqItems = getHomepageFAQ(language);
+  const seo = useMemo(() => {
+    return language === "pt"
+      ? {
+          title: "Strict.Dev — Criação de Sites, IA e RGPD | Portugal",
+          description:
+            "Criação de sites profissionais, chatbot com IA e consultoria RGPD para PMEs em Portugal. Agência digital em Lisboa, Porto, Braga. Proposta gratuita em 24h.",
+          keywords:
+            "criação de sites portugal, desenvolvimento web, agência digital, chatbot ia, loja online, rgpd, web design lisboa, web design porto, criar site profissional, sites para empresas, consultoria digital portugal",
+        }
+      : {
+          title: "Strict.Dev — Website Creation, AI & GDPR | Portugal",
+          description:
+            "Professional website creation, AI chatbot and GDPR consultancy for SMEs in Portugal. Digital agency in Lisbon, Porto, Braga. Free proposal in 24h.",
+          keywords:
+            "website creation portugal, web development, digital agency, ai chatbot, online store, gdpr, web design lisbon, web design porto, professional website, websites for business, digital consultancy portugal",
+        };
+  }, [language]);
 
-  const seo = language === "pt"
-    ? {
-        title: "Strict.Dev — Criação de Sites, IA e RGPD | Portugal",
-        description: "Criação de sites profissionais, chatbot com IA e consultoria RGPD para PMEs em Portugal. Agência digital em Lisboa, Porto, Braga. Proposta gratuita em 24h.",
-        keywords: "criação de sites portugal, desenvolvimento web, agência digital, chatbot ia, loja online, rgpd, web design lisboa, web design porto, criar site profissional, sites para empresas, consultoria digital portugal",
-      }
-    : {
-        title: "Strict.Dev — Website Creation, AI & GDPR | Portugal",
-        description: "Professional website creation, AI chatbot and GDPR consultancy for SMEs in Portugal. Digital agency in Lisbon, Porto, Braga. Free proposal in 24h.",
-        keywords: "website creation portugal, web development, digital agency, ai chatbot, online store, gdpr, web design lisbon, web design porto, professional website, websites for business, digital consultancy portugal",
-      };
+  const faqItems = useMemo(() => getHomepageFAQ(language), [language]);
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Strict.Dev",
-    "url": "https://strict-dev.com",
-    "logo": "https://strict-dev.com/logo.png",
-    "description": seo.description,
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "info@strict-dev.com",
-      "contactType": "customer service",
-      "availableLanguage": ["Portuguese", "English"]
-    },
-    "sameAs": [
-      "https://www.linkedin.com/company/strict-dev"
-    ]
-  };
+  const structuredData = useMemo(() => {
+    const orgId = "https://strict-dev.com/#org";
+    const businessId = "https://strict-dev.com/#business";
+
+    const faqSchema =
+      Array.isArray(faqItems) && faqItems.length
+        ? {
+            "@type": "FAQPage",
+            "@id": "https://strict-dev.com/#faq",
+            mainEntity: faqItems
+              .filter((x: any) => x?.question && x?.answer)
+              .map((x: any) => ({
+                "@type": "Question",
+                name: x.question,
+                acceptedAnswer: {
+                  "@type": "Answer",
+                  text: x.answer,
+                },
+              })),
+          }
+        : null;
+
+    return {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": orgId,
+          name: "Strict.Dev",
+          url: "https://strict-dev.com",
+          logo: "https://strict-dev.com/logo.png",
+          description: seo.description,
+          email: "info@strict-dev.com",
+          telephone: "+351910205459",
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Viana do Castelo",
+            addressRegion: "Viana do Castelo",
+            addressCountry: "PT",
+          },
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: "info@strict-dev.com",
+            telephone: "+351910205459",
+            contactType: "customer service",
+            availableLanguage: ["pt-PT", "en-GB"],
+          },
+          sameAs: ["https://www.linkedin.com/company/strict-dev"],
+        },
+        {
+          "@type": "ProfessionalService",
+          "@id": businessId,
+          name: "Strict.Dev",
+          url: "https://strict-dev.com",
+          provider: { "@id": orgId },
+          logo: "https://strict-dev.com/logo.png",
+          image: "https://strict-dev.com/og-image.png",
+          description: seo.description,
+          telephone: "+351910205459",
+          email: "info@strict-dev.com",
+          priceRange: "€€",
+          currenciesAccepted: "EUR",
+          paymentAccepted: ["BankTransfer", "CreditCard"],
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: "Viana do Castelo",
+            addressRegion: "Viana do Castelo",
+            addressCountry: "PT",
+          },
+          areaServed: [
+            { "@type": "Country", name: "Portugal" },
+            { "@type": "City", name: "Viana do Castelo" },
+            { "@type": "City", name: "Braga" },
+            { "@type": "City", name: "Porto" },
+            { "@type": "City", name: "Lisboa" },
+            { "@type": "City", name: "Coimbra" },
+            { "@type": "City", name: "Aveiro" },
+          ],
+          serviceType: [
+            "Web Development",
+            "Website Creation",
+            "AI Chatbot Development",
+            "E-commerce Development",
+            "GDPR Consultancy",
+            "Technical Maintenance",
+            "Cloud Infrastructure",
+          ],
+          knowsLanguage: ["pt-PT", "en-GB"],
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              opens: "09:00",
+              closes: "18:00",
+            },
+          ],
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: language === "pt" ? "Serviços Digitais" : "Digital Services",
+            itemListElement: [
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name:
+                    language === "pt"
+                      ? "Criação de Sites Profissionais"
+                      : "Professional Website Creation",
+                  url: "https://strict-dev.com/servicos/desenvolvimento-web",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: language === "pt" ? "Agentes de Inteligência Artificial" : "AI Agents",
+                  url: "https://strict-dev.com/servicos/agentes-ia",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: language === "pt" ? "Loja Online" : "E-commerce",
+                  url: "https://strict-dev.com/servicos/loja-online",
+                },
+              },
+              {
+                "@type": "Offer",
+                itemOffered: {
+                  "@type": "Service",
+                  name: language === "pt" ? "Consultoria RGPD" : "GDPR Consultancy",
+                  url: "https://strict-dev.com/servicos/rgpd-dados",
+                },
+              },
+            ],
+          },
+          sameAs: [
+            "https://www.linkedin.com/company/strict-dev",
+            "https://maps.app.goo.gl/S1GFdxo2qikU1nxZA",
+          ],
+        },
+        ...(faqSchema ? [faqSchema] : []),
+      ],
+    };
+  }, [seo.description, language, faqItems]);
+
+  const canonical = language === "pt" ? "/" : "/?lang=en";
 
   return (
     <>
@@ -55,16 +193,18 @@ export function HomePage() {
         title={seo.title}
         description={seo.description}
         keywords={seo.keywords}
-        canonical="/"
+        canonical={canonical}
         ogType="website"
-        structuredData={organizationSchema}
+        structuredData={structuredData}
       />
-      <Hero 
+
+      <Hero
         onShowAnimation={() => setShowAnimation(true)}
         shouldHideCore={showAnimation}
         showAnimation={showAnimation}
         onCloseAnimation={() => setShowAnimation(false)}
       />
+
       <SectionDivider />
       <Services />
       <TechStack />
@@ -78,6 +218,7 @@ export function HomePage() {
       <SectionDivider />
       <Contact />
       <SectionDivider />
+
       <div id="faq">
         <FAQSection items={faqItems} language={language} />
       </div>
