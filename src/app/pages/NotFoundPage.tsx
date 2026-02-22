@@ -30,11 +30,11 @@ const itemVariants = {
 };
 
 const suggestedLinks = [
-  { path: "/servicos/desenvolvimento-web", icon: Globe, labelPt: "Criacao de Sites", labelEn: "Website Creation" },
+  { path: "/servicos/desenvolvimento-web", icon: Globe, labelPt: "Criação de Sites", labelEn: "Website Creation" },
   { path: "/servicos/agentes-ia", icon: Bot, labelPt: "Agentes de IA", labelEn: "AI Agents" },
   { path: "/servicos/loja-online", icon: ShoppingBag, labelPt: "Loja Online", labelEn: "Online Store" },
   { path: "/servicos/rgpd-dados", icon: Database, labelPt: "RGPD & Dados", labelEn: "GDPR & Data" },
-  { path: "/servicos/manutencao", icon: Cpu, labelPt: "Manutencao Tecnica", labelEn: "Technical Maintenance" },
+  { path: "/servicos/manutencao", icon: Cpu, labelPt: "Manutenção Técnica", labelEn: "Technical Maintenance" },
   { path: "/servicos/infraestrutura", icon: Server, labelPt: "Infraestrutura", labelEn: "Infrastructure" },
 ];
 
@@ -48,7 +48,7 @@ export function NotFoundPage() {
     >
       <SEOHead
         title={`404 — ${language === "pt" ? "Pagina nao encontrada" : "Page not found"} | Strict.Dev`}
-        description={language === "pt" ? "A pagina que procura nao existe ou foi removida." : "The page you are looking for does not exist or has been removed."}
+        description={language === "pt" ? "A página que procura não existe ou foi removida." : "The page you are looking for does not exist or has been removed."}
         noindex={true}
       />
 
