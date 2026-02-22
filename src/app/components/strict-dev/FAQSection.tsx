@@ -10,9 +10,10 @@ interface FAQItem {
 interface FAQSectionProps {
   items: FAQItem[];
   language: 'pt' | 'en';
+  includeSchema?: boolean;
 }
 
-export function FAQSection({ items, language }: FAQSectionProps) {
+export function FAQSection({ items, language, includeSchema = true }: FAQSectionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!items || items.length === 0) return null;
@@ -40,11 +41,13 @@ export function FAQSection({ items, language }: FAQSectionProps) {
       className="py-12 md:py-20 border-b border-neutral-100 dark:border-[#1a1a1a]"
       aria-labelledby="faq-title"
     >
-      {/* FAQPage Structured Data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      {/* FAQPage Structured Data — skipped when parent page handles it in @graph */}
+      {includeSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
 
       <div className="container mx-auto px-3 md:px-6 max-w-7xl">
         <div className="mb-8 md:mb-12">
