@@ -20,18 +20,18 @@ export function HomePage() {
   const seo = useMemo(() => {
     return language === "pt"
       ? {
-          title: "Strict.Dev — Criação de Sites, IA e RGPD | Portugal",
+          title: "Criação de Sites, Lojas Online e IA — Strict.Dev | Portugal",
           description:
-            "Criação de sites profissionais, chatbot com IA e consultoria RGPD para PMEs em Portugal. Agência digital em Lisboa, Porto, Braga. Proposta gratuita em 24h.",
+            "Sites profissionais e otimizados para SEO, e-commerce e implementação de IA para PMEs e negócios locais em Portugal. Orçamento gratuito em 24h.",
           keywords:
-            "criação de sites portugal, desenvolvimento web, agência digital, chatbot ia, loja online, rgpd, web design lisboa, web design porto, criar site profissional, sites para empresas, consultoria digital portugal",
+            "criação de sites portugal, lojas online, e-commerce portugal, implementação ia, agentes ia, sites para empresas, criar site profissional, consultoria digital portugal, web design portugal",
         }
       : {
-          title: "Strict.Dev — Website Creation, AI & GDPR | Portugal",
+          title: "Strict.Dev — Website Creation, Online Stores & AI | Portugal",
           description:
-            "Professional website creation, AI chatbot and GDPR consultancy for SMEs in Portugal. Digital agency in Lisbon, Porto, Braga. Free proposal in 24h.",
+            "Professional SEO-optimized websites, online stores and AI implementation for SMEs in Portugal. Free quote in 24h.",
           keywords:
-            "website creation portugal, web development, digital agency, ai chatbot, online store, gdpr, web design lisbon, web design porto, professional website, websites for business, digital consultancy portugal",
+            "website creation portugal, online stores, e-commerce portugal, ai implementation, ai agents, professional website, websites for business, digital consultancy portugal, web design portugal",
         };
   }, [language]);
 
