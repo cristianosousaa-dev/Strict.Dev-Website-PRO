@@ -21,7 +21,7 @@ export function ProjectConfigurator() {
       name: t.projectConfigurator.services.web, 
       desc: t.projectConfigurator.services.webDesc,
       weeks: 5,
-      price: 399
+      price: 299
     },
     { 
       id: 'ai', 
@@ -42,7 +42,7 @@ export function ProjectConfigurator() {
       name: t.projectConfigurator.services.rgpd, 
       desc: t.projectConfigurator.services.rgpdDesc,
       weeks: 3,
-      price: 299
+      price: 149
     },
     { 
       id: 'maintenance', 
@@ -57,7 +57,7 @@ export function ProjectConfigurator() {
       name: t.projectConfigurator.services.infra, 
       desc: t.projectConfigurator.services.infraDesc,
       weeks: 2,
-      price: 59,
+      price: 49,
       isMonthly: true
     },
   ];
@@ -72,11 +72,15 @@ export function ProjectConfigurator() {
   const total = selectedData.reduce((acc, s) => acc + s.price, 0);
   const days = selectedData.reduce((acc, s) => acc + s.weeks, 0);
 
-  const format = (n: number) => new Intl.NumberFormat('pt-PT', {
-    style: 'currency',
-    currency: 'EUR',
-    minimumFractionDigits: 0,
-  }).format(n);
+  const format = (n: number) => {
+    const formatted = new Intl.NumberFormat('pt-PT', {
+      style: 'currency',
+      currency: 'EUR',
+      minimumFractionDigits: 0,
+    }).format(n);
+    // Remove espaço entre número e símbolo (ex: "299 €" → "299€")
+    return formatted.replace(/\s+/g, '');
+  };
 
   return (
     <section 
