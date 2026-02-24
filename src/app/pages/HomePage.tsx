@@ -22,12 +22,12 @@ export function HomePage() {
       ? {
           title: "Criação de Sites e Lojas Online em Portugal | Strict.Dev",
           description:
-            "Sites profissionais otimizados para SEO, e-commerce e implementação de IA para PMEs e negócios locais em Portugal. Orçamento gratuito em 24h.",
+            "Sites profissionais otimizados para SEO técnico, ecommerce e implementação de IA para PMEs e negócios locais. Orçamento gratuito em 24h.",
           keywords:
             "criação de sites portugal, lojas online, e-commerce portugal, implementação ia, agentes ia, sites para empresas, criar site profissional, consultoria digital portugal, web design portugal",
         }
       : {
-          title: "Strict.Dev — Website Creation & Online Stores in Portugal",
+          title: "Website Creation & Online Stores in Portugal | Strict.Dev",
           description:
             "Professional SEO-optimized websites, online stores and AI implementation for SMEs in Portugal. Free quote in 24h.",
           keywords:
@@ -39,7 +39,6 @@ export function HomePage() {
 
   const structuredData = useMemo(() => {
     const orgId = "https://strict-dev.com/#org";
-    const businessId = "https://strict-dev.com/#business";
 
     const faqSchema =
       Array.isArray(faqItems) && faqItems.length
@@ -85,99 +84,6 @@ export function HomePage() {
             availableLanguage: ["pt-PT", "en-GB"],
           },
           sameAs: ["https://www.linkedin.com/company/strict-dev"],
-        },
-        {
-          "@type": "ProfessionalService",
-          "@id": businessId,
-          name: "Strict.Dev",
-          url: "https://strict-dev.com",
-          provider: { "@id": orgId },
-          logo: "https://strict-dev.com/logo.png",
-          image: "https://strict-dev.com/og-image.png",
-          description: seo.description,
-          telephone: "+351910205459",
-          email: "info@strict-dev.com",
-          priceRange: "€€",
-          currenciesAccepted: "EUR",
-          paymentAccepted: ["BankTransfer", "CreditCard"],
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Viana do Castelo",
-            addressRegion: "Viana do Castelo",
-            addressCountry: "PT",
-          },
-          areaServed: [
-            { "@type": "Country", name: "Portugal" },
-            { "@type": "City", name: "Viana do Castelo" },
-            { "@type": "City", name: "Braga" },
-            { "@type": "City", name: "Porto" },
-            { "@type": "City", name: "Lisboa" },
-            { "@type": "City", name: "Coimbra" },
-            { "@type": "City", name: "Aveiro" },
-          ],
-          serviceType: [
-            "Web Development",
-            "Website Creation",
-            "AI Chatbot Development",
-            "E-commerce Development",
-            "GDPR Consultancy",
-            "Technical Maintenance",
-            "Cloud Infrastructure",
-          ],
-          knowsLanguage: ["pt-PT", "en-GB"],
-          openingHoursSpecification: [
-            {
-              "@type": "OpeningHoursSpecification",
-              dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-              opens: "09:00",
-              closes: "18:00",
-            },
-          ],
-          hasOfferCatalog: {
-            "@type": "OfferCatalog",
-            name: language === "pt" ? "Serviços Digitais" : "Digital Services",
-            itemListElement: [
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name:
-                    language === "pt"
-                      ? "Criação de Sites Profissionais"
-                      : "Professional Website Creation",
-                  url: "https://strict-dev.com/servicos/desenvolvimento-web",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: language === "pt" ? "Agentes de Inteligência Artificial" : "AI Agents",
-                  url: "https://strict-dev.com/servicos/agentes-ia",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: language === "pt" ? "Loja Online" : "E-commerce",
-                  url: "https://strict-dev.com/servicos/loja-online",
-                },
-              },
-              {
-                "@type": "Offer",
-                itemOffered: {
-                  "@type": "Service",
-                  name: language === "pt" ? "Consultoria RGPD" : "GDPR Consultancy",
-                  url: "https://strict-dev.com/servicos/rgpd-dados",
-                },
-              },
-            ],
-          },
-          sameAs: [
-            "https://www.linkedin.com/company/strict-dev",
-            "https://maps.app.goo.gl/S1GFdxo2qikU1nxZA",
-          ],
         },
         ...(faqSchema ? [faqSchema] : []),
       ],
