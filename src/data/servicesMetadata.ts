@@ -21,13 +21,13 @@ export const servicesMetadata: Record<string, ServiceMetadata> = {
   'web-development': {
     pt: {
       title: 'Criação de Sites Profissionais Portugal | Strict.Dev',
-      description: 'Criação de sites profissionais em Portugal. Desenvolvimento web com performance superior, SEO otimizado e design responsivo. Proposta personalizada em 24h para Lisboa, Porto, Braga e Coimbra.',
-      keywords: 'criação de sites portugal, criar site profissional, desenvolvimento web, web design lisboa, web design porto, agência digital portugal, site profissional para empresas, criação de websites braga, seo portugal, sites para PMEs'
+      description: 'Criação de sites profissionais em Portugal. Desenvolvimento web com performance superior, SEO otimizado e design responsivo. Orçamento personalizado em 24h.',
+      keywords: 'criação de sites portugal, criar site profissional, desenvolvimento web, web design portugal, agência digital portugal, site profissional para empresas, seo portugal, sites para PMEs'
     },
     en: {
       title: 'Professional Website Creation Portugal | Strict.Dev',
-      description: 'Professional website creation in Portugal. Web development with superior performance, optimised SEO and responsive design. Personalised proposal in 24h for Lisbon, Porto, Braga and Coimbra.',
-      keywords: 'website creation portugal, professional web development, web design lisbon, web design porto, digital agency portugal, professional website for business, website creation braga, seo portugal, websites for SMEs'
+      description: 'Professional website creation in Portugal. Web development with superior performance, optimised SEO and responsive design. Free personalised quote in 24h.',
+      keywords: 'website creation portugal, professional web development, web design portugal, digital agency portugal, professional website for business, seo portugal, websites for SMEs'
     },
     canonical: '/servicos/desenvolvimento-web'
   },
@@ -47,13 +47,13 @@ export const servicesMetadata: Record<string, ServiceMetadata> = {
   'ecommerce': {
     pt: {
       title: 'Criar Loja Online Portugal | Strict.Dev',
-      description: 'Criação de lojas online profissionais em Portugal. E-commerce com pagamentos integrados, gestão de stock e design otimizado para conversão. Proposta em 24h.',
-      keywords: 'criar loja online portugal, loja online profissional, e-commerce portugal, vender online, loja virtual lisboa, loja online porto, plataforma vendas online, criação e-commerce braga, loja com multibanco mb way'
+      description: 'Criação de lojas online profissionais em Portugal. E-commerce com pagamentos integrados, gestão de stock e design otimizado para conversão. Orçamento em 24h.',
+      keywords: 'criar loja online portugal, loja online profissional, e-commerce portugal, vender online, plataforma vendas online, loja com multibanco mb way, lojas online para PMEs'
     },
     en: {
       title: 'Create Online Store Portugal | Strict.Dev',
-      description: 'Professional online store creation in Portugal. E-commerce with integrated payments, stock management and conversion-optimised design. Proposal in 24h.',
-      keywords: 'create online store portugal, professional online store, e-commerce portugal, sell online, virtual store lisbon, online store porto, online sales platform, e-commerce creation braga, store with multibanco mb way'
+      description: 'Professional online store creation in Portugal. E-commerce with integrated payments, stock management and conversion-optimised design. Free quote in 24h.',
+      keywords: 'create online store portugal, professional online store, e-commerce portugal, sell online, online sales platform, store with multibanco mb way, online stores for SMEs'
     },
     canonical: '/servicos/loja-online'
   },
