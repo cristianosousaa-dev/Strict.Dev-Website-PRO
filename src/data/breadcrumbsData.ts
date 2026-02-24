@@ -20,7 +20,7 @@ export const getBreadcrumbs = (
   const serviceNames: Record<string, { pt: string; en: string; url: string }> = {
     'web-development': {
       pt: 'Criação de Sites',
-      en: 'Web Development',
+      en: 'Website Creation',
       url: '/servicos/desenvolvimento-web'
     },
     'ai-agents': {
