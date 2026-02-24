@@ -24,14 +24,14 @@ export function HomePage() {
           description:
             "Sites profissionais otimizados para SEO técnico, ecommerce e implementação de IA para PMEs e negócios locais. Orçamento gratuito em 24h.",
           keywords:
-            "criação de sites portugal, lojas online, e-commerce portugal, implementação ia, agentes ia, sites para empresas, criar site profissional, consultoria digital portugal, web design portugal",
+            "criação de sites portugal, lojas online, ecommerce portugal, implementação ia, agentes ia, sites para empresas, criar site profissional, consultoria digital portugal, web design portugal",
         }
       : {
           title: "Website Creation & Online Stores in Portugal | Strict.Dev",
           description:
-            "Professional SEO-optimized websites, online stores and AI implementation for SMEs in Portugal. Free quote in 24h.",
+            "Professional websites optimized for technical SEO, ecommerce and AI implementation for SMEs and local businesses. Free quote in 24h.",
           keywords:
-            "website creation portugal, online stores, e-commerce portugal, ai implementation, ai agents, professional website, websites for business, digital consultancy portugal, web design portugal",
+            "website creation portugal, online stores, ecommerce portugal, ai implementation, ai agents, professional website, websites for business, digital consultancy portugal, web design portugal",
         };
   }, [language]);
 
