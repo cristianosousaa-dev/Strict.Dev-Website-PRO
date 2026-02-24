@@ -73,7 +73,7 @@ export function HomePage() {
           telephone: "+351910205459",
           address: {
             "@type": "PostalAddress",
-            addressLocality: "Viana do Castelo",
+            addressLocality: "Ponte de Lima",
             addressRegion: "Viana do Castelo",
             addressCountry: "PT",
           },
