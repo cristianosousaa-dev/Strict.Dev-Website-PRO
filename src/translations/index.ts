@@ -334,7 +334,7 @@ export const translations = {
       subtitle: "Selecione os serviços necessários para o seu projeto. Os valores apresentados são estimativas base e podem variar conforme especificações e contexto do projeto.",
       selectServices: "Selecione serviços para ver estimativa",
       services: {
-        web: "Desenvolvimento Web",
+        web: "Criação de Sites",
         webDesc: "Website profissional focado em conversão, desempenho e credibilidade digital.",
         webDetails: "Desenvolvimento full-stack de aplicações web modernas, otimizadas para SEO e conversão. Inclui design system, testes automatizados e deploy contínuo.",
         ai: "Agentes de IA",
@@ -750,7 +750,7 @@ export const translations = {
       subtitle: "Select the necessary services for your project. The values presented are base estimates and may vary based on project specifications and context.",
       selectServices: "Select services to see estimate",
       services: {
-        web: "Web Development",
+        web: "Website Creation",
         webDesc: "Professional website focused on conversion, performance and digital credibility.",
         webDetails: "Full-stack development of modern web applications, optimized for SEO and conversion. Includes design system, automated testing, and continuous deployment.",
         ai: "AI Agents",
