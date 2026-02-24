@@ -65,9 +65,10 @@ export function FAQSection({ items, language, includeSchema = true }: FAQSection
         <div className="max-w-3xl space-y-0">
           {items.map((item, idx) => {
             const isOpen = openIndex === idx;
+            const itemKey = `faq-${item.question.slice(0, 30).replace(/\s+/g, '-').toLowerCase()}`;
             return (
               <div
-                key={idx}
+                key={itemKey}
                 className="border-b border-neutral-200 dark:border-[#1a1a1a]"
               >
                 <button
