@@ -16,7 +16,7 @@ const Breadcrumbs: React.FC = () => {
   const serviceRoutes: Record<string, { pt: string; en: string }> = {
     '/servicos/desenvolvimento-web': {
       pt: 'Criação de Sites',
-      en: 'Web Development'
+      en: 'Website Creation'
     },
     '/servicos/agentes-ia': {
       pt: 'Agentes de IA',
