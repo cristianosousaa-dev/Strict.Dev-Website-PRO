@@ -47,13 +47,13 @@ export const servicesMetadata: Record<string, ServiceMetadata> = {
   'ecommerce': {
     pt: {
       title: 'Criar Loja Online Portugal | Strict.Dev',
-      description: 'Criação de lojas online profissionais em Portugal. E-commerce com pagamentos integrados, gestão de stock e design otimizado para conversão. Orçamento em 24h.',
-      keywords: 'criar loja online portugal, loja online profissional, e-commerce portugal, vender online, plataforma vendas online, loja com multibanco mb way, lojas online para PMEs'
+      description: 'Criação de lojas online profissionais em Portugal. Ecommerce com pagamentos integrados, gestão de stock e design otimizado para conversão. Orçamento em 24h.',
+      keywords: 'criar loja online portugal, loja online profissional, ecommerce portugal, vender online, plataforma vendas online, loja com multibanco mb way, lojas online para PMEs'
     },
     en: {
       title: 'Create Online Store Portugal | Strict.Dev',
-      description: 'Professional online store creation in Portugal. E-commerce with integrated payments, stock management and conversion-optimised design. Free quote in 24h.',
-      keywords: 'create online store portugal, professional online store, e-commerce portugal, sell online, online sales platform, store with multibanco mb way, online stores for SMEs'
+      description: 'Professional online store creation in Portugal. Ecommerce with integrated payments, stock management and conversion-optimised design. Free quote in 24h.',
+      keywords: 'create online store portugal, professional online store, ecommerce portugal, sell online, online sales platform, store with multibanco mb way, online stores for SMEs'
     },
     canonical: '/servicos/loja-online'
   },
