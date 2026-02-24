@@ -20,14 +20,14 @@ export function HomePage() {
   const seo = useMemo(() => {
     return language === "pt"
       ? {
-          title: "Criação de Sites, Lojas Online e IA — Strict.Dev | Portugal",
+          title: "Criação de Sites e Lojas Online em Portugal | Strict.Dev",
           description:
-            "Sites profissionais e otimizados para SEO, e-commerce e implementação de IA para PMEs e negócios locais em Portugal. Orçamento gratuito em 24h.",
+            "Sites profissionais otimizados para SEO, e-commerce e implementação de IA para PMEs e negócios locais em Portugal. Orçamento gratuito em 24h.",
           keywords:
             "criação de sites portugal, lojas online, e-commerce portugal, implementação ia, agentes ia, sites para empresas, criar site profissional, consultoria digital portugal, web design portugal",
         }
       : {
-          title: "Strict.Dev — Website Creation, Online Stores & AI | Portugal",
+          title: "Strict.Dev — Website Creation & Online Stores in Portugal",
           description:
             "Professional SEO-optimized websites, online stores and AI implementation for SMEs in Portugal. Free quote in 24h.",
           keywords:
