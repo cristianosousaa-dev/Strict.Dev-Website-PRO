@@ -274,10 +274,10 @@ export function Contact() {
                   {t.contact.email}
                 </p>
                 <a
-                  href="mailto:geral@strict-dev.com"
+                  href="mailto:info@strict-dev.com"
                   className="text-sm md:text-base text-neutral-900 dark:text-neutral-100 hover:text-[#2f5e50] transition-colors flex items-center gap-2 font-medium cursor-pointer"
                 >
-                  geral@strict-dev.com
+                  info@strict-dev.com
                   <ArrowUpRight className="w-3 h-3 opacity-50 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
                 </a>
               </div>
